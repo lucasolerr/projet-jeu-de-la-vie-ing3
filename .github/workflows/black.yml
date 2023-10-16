@@ -3,7 +3,7 @@ name: Reformat Python Code
 on:
   push:
     branches:
-      - main  # Change to your default branch
+      - master
 
 jobs:
   reformat:
