@@ -109,6 +109,7 @@ class Grille:
         for cellule in list_mortes:
             cellule.cell_dead()
 
+
 """
 # Proposition de code de calcul optimisé
 def precalculate_neighbors(self):
