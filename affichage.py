@@ -1,10 +1,17 @@
 import pygame
 
 
-def afficher_grille(carres, etats_carres, survole, fenetre, image_carre_survol, image_carre_mort, image_carre_vivant):
+def afficher_grille(
+    carres,
+    etats_carres,
+    survole,
+    fenetre,
+    image_carre_survol,
+    image_carre_mort,
+    image_carre_vivant,
+):
     # Dessiner les carrés en fonction de leur état survolé
     for i, rect in enumerate(carres):
-
         if survole[i]:
             fenetre.blit(image_carre_survol, rect.topleft)
         else:
@@ -34,13 +41,20 @@ fenetre = pygame.display.set_mode((fenetre_largeur, fenetre_hauteur))
 image_carre_mort = pygame.image.load("carre_mort.png")
 image_carre_mort = pygame.transform.scale(image_carre_mort, (taille_case, taille_case))
 image_carre_survol = pygame.image.load("carre_survol.png")
-image_carre_survol = pygame.transform.scale(image_carre_survol, (taille_case, taille_case))
+image_carre_survol = pygame.transform.scale(
+    image_carre_survol, (taille_case, taille_case)
+)
 image_carre_vivant = pygame.image.load("carre_vivant.png")
-image_carre_vivant = pygame.transform.scale(image_carre_vivant, (taille_case, taille_case))
+image_carre_vivant = pygame.transform.scale(
+    image_carre_vivant, (taille_case, taille_case)
+)
 
 # liste de rectangles pour chaque carré
-carres = [pygame.Rect(50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case) for x in range(nbr_case) for
-          y in range(nbr_case)]
+carres = [
+    pygame.Rect(50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case)
+    for x in range(nbr_case)
+    for y in range(nbr_case)
+]
 
 #  liste pour suivre l'état survolé / cliqué de chaque carré
 survole = [False] * (nbr_case * nbr_case)
@@ -71,8 +85,15 @@ while en_cours:
 
     fenetre.fill((255, 255, 255))
 
-    afficher_grille(carres, etats_carres, survole, fenetre, image_carre_survol, image_carre_mort,
-                    image_carre_vivant)
+    afficher_grille(
+        carres,
+        etats_carres,
+        survole,
+        fenetre,
+        image_carre_survol,
+        image_carre_mort,
+        image_carre_vivant,
+    )
     pygame.display.flip()
 
 pygame.quit()
