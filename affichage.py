@@ -28,14 +28,16 @@ taille_case = 12
 nbr_case = 50
 
 # Fenêtre
-fenetre = pygame.display.set_mode((fenetre_largeur, fenetre_hauteur))
+#fenetre = pygame.display.set_mode((fenetre_largeur, fenetre_hauteur))
+fenetre = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+pygame.display.set_caption("Le jeu de la vie")
 
 # image :
-image_carre_mort = pygame.image.load("carre_mort.png")
+image_carre_mort = pygame.image.load("image\carre_mort.png")
 image_carre_mort = pygame.transform.scale(image_carre_mort, (taille_case, taille_case))
-image_carre_survol = pygame.image.load("carre_survol.png")
+image_carre_survol = pygame.image.load("image\carre_survol.png")
 image_carre_survol = pygame.transform.scale(image_carre_survol, (taille_case, taille_case))
-image_carre_vivant = pygame.image.load("carre_vivant.png")
+image_carre_vivant = pygame.image.load("image\carre_vivant.png")
 image_carre_vivant = pygame.transform.scale(image_carre_vivant, (taille_case, taille_case))
 
 # liste de rectangles pour chaque carré
@@ -58,7 +60,9 @@ while en_cours:
                 for i, rect in enumerate(carres):
                     if rect.collidepoint(pos_souris):
                         etats_carres[i] = not etats_carres[i]  # Mort / Vivant
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                en_cours = False  # Quitter la fenêtre si Échap est pressé
     # Position de la souris
     pos_souris = pygame.mouse.get_pos()
 
