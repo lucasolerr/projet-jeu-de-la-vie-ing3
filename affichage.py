@@ -28,6 +28,7 @@ taille_case = 12
 nbr_case = 50
 
 # Fenêtre
+
 #fenetre = pygame.display.set_mode((fenetre_largeur, fenetre_hauteur))
 fenetre = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Le jeu de la vie")
