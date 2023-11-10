@@ -109,7 +109,7 @@ class Grille:
         for cellule in list_mortes:
             cellule.cell_dead()
 
-    #compter les cellules vivantes 
+    # compter les cellules vivantes
     def count_vivantes(self):
         count = 0
         for lignes in self.grille2D:
@@ -118,12 +118,11 @@ class Grille:
                     count += 1
         return count
 
-    #Calculer le nombre de cellules vivantes dans la grille et actualiser à chaque itération 
+    # Calculer le nombre de cellules vivantes dans la grille et actualiser à chaque itération
     def update_and_count_vivantes(self):
         self.etat_suivant()  # Met à jour l'état de la grille
         vivantes = self.count_vivantes()  # Compte les cellules vivantes
         return vivantes
-
 
 
 """

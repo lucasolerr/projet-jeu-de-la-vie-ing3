@@ -3,8 +3,8 @@ import graph
 
 
 def Jouer():
-    #initialisation nombre iteration
-    iteration = 0 
+    # initialisation nombre iteration
+    iteration = 0
     # blindage pour être sur que la taille est un nb entier
     while True:
         # demander la taille de la grille à l'utilisateur
@@ -34,19 +34,14 @@ def Jouer():
         if choix == "":
             grille.etat_suivant()
             grille.afficher_grille()
-            #Nombre d'itération 
+            # Nombre d'itération
             iteration += 1
 
             # Calculer le nombre de cellules vivantes
             vivantes = grille.update_and_count_vivantes()
-             
-            #affichage du graphique 
-            if iteration >= 1 : #verification que le nombre d'iteration n'est pas nul
-             graph.Afficher_Graph(iteration,vivantes)
-             # Mise à jour du graphique
-             graph.update_graph(iteration, vivantes)
-         
 
-
-
-
+            # affichage du graphique
+            if iteration >= 1:  # verification que le nombre d'iteration n'est pas nul
+                graph.Afficher_Graph(iteration, vivantes)
+                # Mise à jour du graphique
+                graph.update_graph(iteration, vivantes)
