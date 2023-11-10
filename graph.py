@@ -21,6 +21,9 @@ def update_graph(x, y):
     y_data.append(y)  # actualisation valeur
     plt.plot(x_data, y_data, marker="o", linestyle="-")
     plt.draw()
+    plt.xlabel("Nombre d'itérations")
+    plt.ylabel("Nombre de cellules vivantes")
+    plt.title("Évolution du nombre de cellules vivantes")
     plt.pause(0.001)  # Pause courte pour actualiser le graphique
 
 
