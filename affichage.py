@@ -41,13 +41,13 @@ fenetre = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Le jeu de la vie")
 
 # image :
-image_carre_mort = pygame.image.load("image\carre_mort.png")
+image_carre_mort = pygame.image.load("image/carre_mort.png")
 image_carre_mort = pygame.transform.scale(image_carre_mort, (taille_case, taille_case))
-image_carre_survol = pygame.image.load("image\carre_survol.png")
+image_carre_survol = pygame.image.load("image/carre_survol.png")
 image_carre_survol = pygame.transform.scale(
     image_carre_survol, (taille_case, taille_case)
 )
-image_carre_vivant = pygame.image.load("image\carre_vivant.png")
+image_carre_vivant = pygame.image.load("image/carre_vivant.png")
 image_carre_vivant = pygame.transform.scale(
     image_carre_vivant, (taille_case, taille_case)
 )
