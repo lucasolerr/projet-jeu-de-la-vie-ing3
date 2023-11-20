@@ -1,7 +1,6 @@
 import pygame
 
 
-
 def afficher_grille(
     grille,
     carres,
@@ -11,7 +10,6 @@ def afficher_grille(
     image_carre_mort,
     image_carre_vivant,
 ):
-
     # Dessiner les carrés en fonction de leur état survolé
     for i, rect in enumerate(carres):
         if survole[i]:
@@ -26,6 +24,7 @@ def afficher_grille(
             fenetre.blit(image_carre_vivant, rect.topleft)
         else:
             fenetre.blit(image_carre_mort, rect.topleft)
+
 
 def affichage_general(grille):
     # Initialisation de Pygame
@@ -44,7 +43,9 @@ def affichage_general(grille):
 
     # image :
     image_carre_mort = pygame.image.load("image/carre_mort.png")
-    image_carre_mort = pygame.transform.scale(image_carre_mort, (taille_case, taille_case))
+    image_carre_mort = pygame.transform.scale(
+        image_carre_mort, (taille_case, taille_case)
+    )
     image_carre_survol = pygame.image.load("image/carre_survol.png")
     image_carre_survol = pygame.transform.scale(
         image_carre_survol, (taille_case, taille_case)
@@ -56,10 +57,12 @@ def affichage_general(grille):
 
     # liste de rectangles pour chaque carré
     carres = [
-            pygame.Rect(50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case)
-            for x in range(grille.colonnes)
-            for y in range(grille.lignes)
-        ]
+        pygame.Rect(
+            50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case
+        )
+        for x in range(grille.colonnes)
+        for y in range(grille.lignes)
+    ]
 
     #  liste pour suivre l'état survolé / cliqué de chaque carré
     survole = [False] * (nbr_case * nbr_case)

@@ -9,8 +9,8 @@ def Jouer(grille):
     # initialisation nombre iteration
     iteration = 0
     # afficher la grille une première fois
-    #grille.afficher_grille()
-    #affichage_general(grille)
+    # grille.afficher_grille()
+    # affichage_general(grille)
 
     # Initialisation de Pygame
     pygame.init()
@@ -29,7 +29,9 @@ def Jouer(grille):
 
     # image :
     image_carre_mort = pygame.image.load("image/carre_mort.png")
-    image_carre_mort = pygame.transform.scale(image_carre_mort, (taille_case, taille_case))
+    image_carre_mort = pygame.transform.scale(
+        image_carre_mort, (taille_case, taille_case)
+    )
     image_carre_survol = pygame.image.load("image/carre_survol.png")
     image_carre_survol = pygame.transform.scale(
         image_carre_survol, (taille_case, taille_case)
@@ -41,7 +43,9 @@ def Jouer(grille):
 
     # liste de rectangles pour chaque carré
     carres = [
-        pygame.Rect(50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case)
+        pygame.Rect(
+            50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case
+        )
         for x in range(grille.colonnes)
         for y in range(grille.lignes)
     ]
@@ -88,9 +92,7 @@ def Jouer(grille):
         )
         pygame.display.flip()
 
-
     pygame.quit()
-
 
     if choix != "q":
         choix = input(
@@ -118,8 +120,3 @@ def Jouer(grille):
                 # Mise à jour du graphique
                 graph.update_graph(iteration, vivantes)
             """
-
-
-
-
-
