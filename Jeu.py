@@ -1,5 +1,6 @@
 from GrilleElement import Grille
 import graph
+import time
 
 
 def Jouer(grille):
@@ -16,8 +17,13 @@ def Jouer(grille):
         )
         # on update la grille en cliquant sur entrée avec mise à jour des cellules en fonction de leur état
         if choix == "":
+            debut = time.time()
             grille.etat_suivant()
+            fin = time.time()
+            temps_execution = fin - debut
             grille.afficher_grille()
+            print(f"Temps d'exécution : {temps_execution:.6f} secondes")
+            """
             # Nombre d'itération
             iteration += 1
 
@@ -29,3 +35,4 @@ def Jouer(grille):
                 graph.Afficher_Graph(iteration, vivantes)
                 # Mise à jour du graphique
                 graph.update_graph(iteration, vivantes)
+            """
