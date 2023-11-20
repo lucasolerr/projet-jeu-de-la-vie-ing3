@@ -1,12 +1,15 @@
 from GrilleElement import Grille
 import graph
+import pygame
+from affichage import affichage_general
 
 
 def Jouer(grille):
     # initialisation nombre iteration
     iteration = 0
     # afficher la grille une première fois
-    grille.afficher_grille()
+    #grille.afficher_grille()
+    affichage_general(grille)
 
     # choix de l'utilisateur
     choix = " "
@@ -16,6 +19,7 @@ def Jouer(grille):
         )
         # on update la grille en cliquant sur entrée avec mise à jour des cellules en fonction de leur état
         if choix == "":
+            affichage_general(grille)
             grille.etat_suivant()
             grille.afficher_grille()
             # Nombre d'itération

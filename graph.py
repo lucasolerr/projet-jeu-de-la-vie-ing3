@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from GrilleElement import Grille
 
 # Listes vides x,y graph
 x_data = []
