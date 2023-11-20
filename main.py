@@ -1,10 +1,11 @@
 from Jeu import Jouer
-from GrilleElement import Grille 
+from GrilleElement import Grille
+
 if __name__ == "__main__":
     print("Bonjour Monde!!")
 
- # créer la grille
- # blindage pour être sur que la taille est un nb entier
+    # créer la grille
+    # blindage pour être sur que la taille est un nb entier
     while True:
         # demander la taille de la grille à l'utilisateur
         lignes = input("saisir la taille N de la grille (NxN): ")
