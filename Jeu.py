@@ -91,6 +91,7 @@ def Jouer(grille):
 
     pygame.quit()
 
+
     if choix != "q":
         choix = input(
             "Cliquer sur q pour quitter ou presser entrer pour update la grille: "
