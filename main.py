@@ -9,9 +9,7 @@ if __name__ == "__main__":
     while True:
         # demander la taille de la grille à l'utilisateur
         lignes = input("saisir la taille N de la grille (NxN): ")
-        if lignes.isnumeric() or (
-            lignes[1:].isnumeric() and lignes[0] == "-"
-        ):  # verifie si le nb est un entier positif
+        if lignes.isnumeric() or (lignes[1:].isnumeric() and lignes[0] == "-"):  # verifie si le nb est un entier positif
             # ou entier negatif : 1er terme - et 2eme terme un entier
             break
         else:
