@@ -61,10 +61,7 @@ def affichage_general(grille):
     image_carre_mort = pygame.transform.scale(
         image_carre_mort, (taille_case, taille_case)
     )
-    image_carre_survol = pygame.image.load("image/carre_survol.png")
-    image_carre_survol = pygame.transform.scale(
-        image_carre_survol, (taille_case, taille_case)
-    )
+
     image_carre_vivant = pygame.image.load("image/carre_vivant.png")
     image_carre_vivant = pygame.transform.scale(
         image_carre_vivant, (taille_case, taille_case)
@@ -142,50 +139,119 @@ def affichage_general(grille):
     pygame.quit()
 
 
+def affichage_choix_grille():
+    return
 
+# Initialisation de Pygame
+pygame.init()
 
-def afficher_menu(grille):
-    # Initialisation de Pygame
-    pygame.init()
+class GameMenu:
+    def __init__(
+        self, screen, items,
+        bg_color=(0, 0, 0), font=None,
+        font_size=100, font_color=(255, 255, 255)
+    ):
+        self.screen = screen
+        self.scr_width = self.screen.get_rect().width
+        self.scr_height = self.screen.get_rect().height
 
-    # Définir la taille de la fenêtre et la taille de la grille
-    fenetre_largeur, fenetre_hauteur = 1200, 650
-    taille_case = 12
-    nbr_case = 50
+        # Background Main Menu
+        self.bg_color = bg_color
 
-    # Fenêtre
+        # Gère l'écart entre le cadre de sélection et le texte de l'élément
+        self.paddingx = 8
+        self.paddingy = 20
 
-    # fenetre = pygame.display.set_mode((fenetre_largeur, fenetre_hauteur))
-    fenetre = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
-    pygame.display.set_caption("Le jeu de la vie")
+        # Informe de l'écran actuel affiché
+        self.start_selected = False
+        self.settings_selected = False
+        self.quit_select = False
 
-    # image :
-    image_carre_mort = pygame.image.load("image/carre_mort.png")
-    image_carre_mort = pygame.transform.scale(
-        image_carre_mort, (taille_case, taille_case)
-    )
+        # Le premier élement sera sélectionné par défaut avec l'index 0.
+        # Si le second élément est sélectionné l'index passera à 1, etc.
+        self.index_selected = 0
 
-    # Boucle principale
-    en_cours = True
-    while en_cours:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                en_cours = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Vérifiez si le clic bouton gauche
-                    pos_souris = pygame.mouse.get_pos()
+        # init font
+        self.font = pygame.font.Font(font, font_size)
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    en_cours = False  # Quitter la fenêtre si Échap est pressé
-        # Position de la souris
-        pos_souris = pygame.mouse.get_pos()
+        # Element courant sélectionné
+        self.current_item = ()
 
+        # Positionnement des éléments visuels
+        self.menu_items = []
 
-        fenetre.fill((255, 255, 255))
+        for index, item in enumerate(items):
+            label = self.font.render(item, 1, font_color)
+            width = label.get_rect().width
+            height = label.get_rect().height + 20
 
-        pygame.display.flip()
+            posx = (self.scr_width / 2) - (width / 2)
+            t_h = len(items) * height
+            posy = (self.scr_height / 2) - (t_h / 2) + (index * height)
 
-    pygame.quit()
+            self.menu_items.append([item, label, (width, height), (posx, posy)])
 
+    def run(self):
+        # gère la boucle de menu, par défaut l'écran menu ne s'arrête jamais
+        mainloop = True
+        while mainloop:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    mainloop = False
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        if self.index_selected > 0:
+                            self.index_selected -= 1
+
+                    if event.key == pygame.K_ESCAPE:
+                        mainloop = False
+
+                    if event.key == pygame.K_DOWN:
+                        if self.index_selected < (len(self.menu_items) - 1):
+                            self.index_selected += 1
+
+                    if event.key == pygame.K_RETURN:
+                        if len(self.current_item) > 0:
+                            if self.current_item[0] == "Jouer":
+                                self.start_selected = True
+                            elif self.current_item[0] == "Charger":
+                                self.settings_selected = True
+                            elif self.current_item[0] == "Quitter":
+                                self.quit_select = True
+                                mainloop = False
+
+            self.current_item = self.menu_items[self.index_selected]
+            self.screen.fill(self.bg_color)
+
+            if not self.start_selected or not self.settings_selected:
+
+                for name, label, (width, height), (posx, posy) in self.menu_items:
+                    self.screen.blit(label, (posx, posy))
+                    name, label, (width, height), (posx, posy) = self.current_item
+                    pygame.draw.rect(
+                        self.screen, (255, 255, 255),
+                        [
+                            posx - self.paddingx, posy - self.paddingy,
+                            width + self.paddingx + self.paddingx, height + self.paddingy
+                        ], 2)
+
+            if self.start_selected:
+                affichage_choix_grille()
+                self.start_selected = False
+
+                pygame.display.flip()
+
+if __name__ == "__main__":
+    # Taille de la fenêtre
+    screen = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
+
+    # Éléments du menu
+    menu_items = ["Jouer","Charger","Quitter"]
+
+    # Création du menu
+    menu = GameMenu(screen, menu_items)
+
+    # Exécution du menu
+    menu.run()
 
