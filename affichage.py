@@ -41,7 +41,6 @@ def afficher_grille_survol(
 
 
 def affichage_general(grille):
-
     # initialisation nombre iteration
     iteration = 0
 
@@ -142,8 +141,6 @@ def affichage_general(grille):
     pygame.quit()
 
 
-
-
 def afficher_menu(grille):
     # Initialisation de Pygame
     pygame.init()
@@ -181,11 +178,8 @@ def afficher_menu(grille):
         # Position de la souris
         pos_souris = pygame.mouse.get_pos()
 
-
         fenetre.fill((255, 255, 255))
 
         pygame.display.flip()
 
     pygame.quit()
-
-
