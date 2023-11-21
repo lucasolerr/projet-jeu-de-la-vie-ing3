@@ -1,4 +1,4 @@
-from Jeu import Jouer
+from Jeu import Boucle_principale
 from GrilleElement import Grille
 
 if __name__ == "__main__":
@@ -19,4 +19,4 @@ if __name__ == "__main__":
     lignes = int(lignes)  # pour caster le nb
     colonnes = lignes
 grille = Grille(lignes, colonnes)
-Jouer(grille)
+Boucle_principale(grille)
