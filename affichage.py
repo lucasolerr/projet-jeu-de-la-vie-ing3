@@ -43,7 +43,6 @@ def afficher_grille_survol(
 
 
 def affichage_general(grille):
-
     # initialisation nombre iteration
     iteration = 0
 
@@ -144,12 +143,17 @@ def affichage_general(grille):
 # Initialisation de Pygame
 pygame.init()
 
+
 class GameMenu:
     def __init__(
-        self, screen, items,
-        bg_color=(0, 0, 0), font=None,
-        font_size=100, font_color=(255, 255, 255),
-        hover_color=(255, 0, 0)  # New attribute for hover color
+        self,
+        screen,
+        items,
+        bg_color=(0, 0, 0),
+        font=None,
+        font_size=100,
+        font_color=(255, 255, 255),
+        hover_color=(255, 0, 0),  # New attribute for hover color
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
@@ -225,13 +229,19 @@ class GameMenu:
                         if len(self.current_item) > 0:
                             self.selected_action = self.current_item[0]
 
-
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     # Check if the left mouse button is clicked
                     mouse_pos = event.pos
-                    for index, (_, _, (width, height), (posx, posy)) in enumerate(self.menu_items):
-                        item_rect = pygame.Rect(posx - self.paddingx, posy - self.paddingy, width + 2 * self.paddingx, height + 2 * self.paddingy)
-                        if item_rect.collidepoint(mouse_pos) :
+                    for index, (_, _, (width, height), (posx, posy)) in enumerate(
+                        self.menu_items
+                    ):
+                        item_rect = pygame.Rect(
+                            posx - self.paddingx,
+                            posy - self.paddingy,
+                            width + 2 * self.paddingx,
+                            height + 2 * self.paddingy,
+                        )
+                        if item_rect.collidepoint(mouse_pos):
                             self.index_selected = index
                             self.current_item = self.menu_items[self.index_selected]
                             self.selected_action = self.current_item[0]
@@ -250,11 +260,16 @@ class GameMenu:
                 self.screen.blit(label, (posx, posy))
                 name, label, (width, height), (posx, posy) = self.current_item
                 pygame.draw.rect(
-                    self.screen, (255, 255, 255),
+                    self.screen,
+                    (255, 255, 255),
                     [
-                        posx - self.paddingx, posy - self.paddingy,
-                        width + self.paddingx + self.paddingx, height + self.paddingy - 30
-                    ], 2)
+                        posx - self.paddingx,
+                        posy - self.paddingy,
+                        width + self.paddingx + self.paddingx,
+                        height + self.paddingy - 30,
+                    ],
+                    2,
+                )
 
             pygame.display.flip()
 
@@ -272,7 +287,9 @@ class GameMenu:
 
 
 class GridSizeMenu:
-    def __init__(self, screen, game_menu, font=None, font_size=50, font_color=(255, 255, 255)):
+    def __init__(
+        self, screen, game_menu, font=None, font_size=50, font_color=(255, 255, 255)
+    ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
@@ -304,7 +321,9 @@ class GridSizeMenu:
                     if event.key == pygame.K_RETURN:
                         try:
                             selected_size = int(self.user_input)
-                            print(f"Taille de la grille sélectionnée : {selected_size}x{selected_size}")
+                            print(
+                                f"Taille de la grille sélectionnée : {selected_size}x{selected_size}"
+                            )
                             if selected_size >= 50:
                                 # FAIRE LA CREATION DE GRILLE ICI
                                 grille = Grille(selected_size, selected_size)
@@ -320,15 +339,27 @@ class GridSizeMenu:
                         self.user_input = self.user_input[:-1]
 
                     if event.key in (
-                            pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6,
-                            pygame.K_7,
-                            pygame.K_8, pygame.K_9):
+                        pygame.K_0,
+                        pygame.K_1,
+                        pygame.K_2,
+                        pygame.K_3,
+                        pygame.K_4,
+                        pygame.K_5,
+                        pygame.K_6,
+                        pygame.K_7,
+                        pygame.K_8,
+                        pygame.K_9,
+                    ):
                         self.user_input += event.unicode
 
             self.screen.fill(self.bg_color)
 
-            pygame.draw.rect(self.screen, (255, 255, 255),
-                             (self.scr_width / 2 - 100, self.scr_height / 2 - 10, 200, 40), 2)
+            pygame.draw.rect(
+                self.screen,
+                (255, 255, 255),
+                (self.scr_width / 2 - 100, self.scr_height / 2 - 10, 200, 40),
+                2,
+            )
 
             label1 = self.font.render(f"Taille de la grille > 50 :", 1, (255, 255, 255))
             width = label1.get_rect().width
@@ -349,12 +380,10 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
 
     # Éléments du menu
-    menu_items = ["Jouer","Charger","Quitter"]
+    menu_items = ["Jouer", "Charger", "Quitter"]
 
     # Création du menu
     menu = GameMenu(screen, menu_items)
 
     # Exécution du menu
     menu.run()
-
-
