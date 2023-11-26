@@ -4,7 +4,6 @@ import pygame
 from affichage import GameMenu
 
 if __name__ == "__main__":
-    print("Bonjour Monde!!")
 
     # créer la grille
     # blindage pour être sur que la taille est un nb entier
@@ -34,4 +33,4 @@ menu = GameMenu(screen, menu_items)
 # Exécution du menu
 menu.run()
 
-Boucle_principale(grille)
+#Boucle_principale(grille)
