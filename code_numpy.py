@@ -90,7 +90,7 @@ class GameOfLifeGUI:
         self.screen.blit(image, (1080, 40))
         median_time = np.median(self.elapsed_time)
         font = pygame.font.Font(None, 36)
-        text = font.render(f"Median Time: {median_time:.2f} ms", True, (0, 0, 0))
+        text = font.render(f"Temps médian d'exécution : {median_time:.2f} ms", True, (0, 0, 0))
         self.screen.blit(text, (1080, 10))
         pygame.display.flip()
 
@@ -110,8 +110,8 @@ class GameOfLifeGUI:
                     self.draw_board()
                     self.draw_curve(
                         data=self.elapsed_time,
-                        x_label="Temps",
-                        y_label="Temps exécution",
+                        x_label="Etapes",
+                        y_label="Temps exécution (ms)",
                     )
                     pygame.display.flip()
                 elif event.key == pygame.K_s:
