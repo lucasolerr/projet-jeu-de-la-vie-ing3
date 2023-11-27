@@ -139,7 +139,6 @@ def affichage_general(grille):
 
     pygame.quit()
 
-
 # Initialisation de Pygame
 pygame.init()
 
@@ -149,18 +148,19 @@ class GameMenu:
         self,
         screen,
         items,
-        bg_color=(0, 0, 0),
+        background_image_path="image/fond_noel.jpg",
         font=None,
         font_size=100,
         font_color=(255, 255, 255),
-        hover_color=(255, 0, 0),  # New attribute for hover color
+        hover_color=(16, 25, 80),  # New attribute for hover color
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
 
         # Background Main Menu
-        self.bg_color = bg_color
+        #self.bg_color = bg_color
+        self.background_image = pygame.image.load(background_image_path)
 
         # Gère l'écart entre le cadre de sélection et le texte de l'élément
         self.paddingx = 10
@@ -185,6 +185,7 @@ class GameMenu:
 
         # Hover color
         self.hover_color = hover_color
+
 
         # Positionnement des éléments visuels
         self.menu_items = []
@@ -248,7 +249,8 @@ class GameMenu:
                             break
 
             self.current_item = self.menu_items[self.index_selected]
-            self.screen.fill(self.bg_color)
+            self.screen.blit(self.background_image, (100, 120))
+            #self.screen.fill(self.bg_color)
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
                 # Change font color when the mouse is over an item
@@ -259,17 +261,22 @@ class GameMenu:
 
                 self.screen.blit(label, (posx, posy))
                 name, label, (width, height), (posx, posy) = self.current_item
-                pygame.draw.rect(
-                    self.screen,
-                    (255, 255, 255),
-                    [
-                        posx - self.paddingx,
-                        posy - self.paddingy,
-                        width + self.paddingx + self.paddingx,
-                        height + self.paddingy - 30,
-                    ],
-                    2,
-                )
+                ###
+                #
+                # pygame.draw.rect(
+                #                     self.screen,
+                #                     (2, 140, 80),
+                #                     [
+                #                         posx - self.paddingx,
+                #                         posy - self.paddingy,
+                #                         width + self.paddingx + self.paddingx,
+                #                         height + self.paddingy - 30,
+                #                     ],
+                #                     10,
+                #                 )
+                #
+                # ###
+
 
             pygame.display.flip()
 
@@ -284,6 +291,7 @@ class GameMenu:
                 elif self.selected_action == "Quitter":
                     self.quit_select = True
                     mainloop = False
+
 
 
 class GridSizeMenu:
@@ -304,6 +312,9 @@ class GridSizeMenu:
         self.game_menu = game_menu
 
         self.user_input = ""
+
+
+
 
     def run(self):
         choix_loop = True
@@ -353,6 +364,8 @@ class GridSizeMenu:
                         self.user_input += event.unicode
 
             self.screen.fill(self.bg_color)
+            self.screen.blit(self.background_image, (100, 120))
+
 
             pygame.draw.rect(
                 self.screen,
@@ -377,7 +390,7 @@ class GridSizeMenu:
 
 if __name__ == "__main__":
     # Taille de la fenêtre
-    screen = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
+    screen = pygame.display.set_mode((1920, 1080))
 
     # Éléments du menu
     menu_items = ["Jouer", "Charger", "Quitter"]
