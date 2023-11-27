@@ -9,6 +9,12 @@ class GameOfLife:
         self.height = height
         self.board = np.random.choice([0, 1], size=(height, width), p=[0.7, 0.3])
 
+    def save_to_file(self, filename):
+        np.savetxt(filename, self.board, fmt="%d")
+
+    def load_from_file(self, filename):
+        self.board = np.loadtxt(filename, dtype=int)
+
     def update_board(self):
         neighbors_count = np.zeros_like(self.board, dtype=int)
 
@@ -73,6 +79,16 @@ class GameOfLifeGUI:
                     elapsed_time = end_time - start_time
                     print(f"Time taken for update: {elapsed_time:.4f} seconds")
                     self.draw_board()
+                elif event.key == pygame.K_s:
+                    filename = "game_state.txt"
+                    self.game.save_to_file(filename)
+                    print(f"Game state saved to {filename}")
+                elif event.key == pygame.K_l:
+                    # Press 'l' to load the state from a file
+                    filename = "game_state.txt"
+                    self.game.load_from_file(filename)
+                    print(f"Game state loaded from {filename}")
+                    self.draw_board()
 
     def run(self):
         while self.running:
@@ -83,7 +99,7 @@ class GameOfLifeGUI:
 if __name__ == "__main__":
     pygame.init()
 
-    game = GameOfLife(width=1000, height=1000)
+    game = GameOfLife(width=50, height=50)
     gui = GameOfLifeGUI(game)
 
     gui.run()
