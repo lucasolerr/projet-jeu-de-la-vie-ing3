@@ -42,3 +42,20 @@ def reset_graph():
 # Fonction pour afficher le graphique
 def Afficher_Graph(iteration, vivantes):
     update_graph(iteration, vivantes)
+
+
+'''if choix == "":
+            grille.etat_suivant()
+            grille.afficher_grille()
+            # Nombre d'itération
+            iteration += 1
+
+            # Calculer le nombre de cellules vivantes
+            vivantes = grille.update_and_count_vivantes()
+
+
+            # affichage du graphique
+            if iteration >= 1:  # verification que le nombre d'iteration n'est pas nul
+                graph.Afficher_Graph(iteration, vivantes)
+                # Mise à jour du graphique
+                graph.update_graph(iteration, vivantes)'''
