@@ -78,7 +78,7 @@ class GameOfLifeGUI:
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
-        ax.set_title('Matplotlib Plot')
+        ax.set_title("Matplotlib Plot")
 
         # Convertir le graphique en image Pygame
         canvas = FigureCanvas(fig)
@@ -95,7 +95,6 @@ class GameOfLifeGUI:
         self.screen.blit(text, (1080, 10))
         pygame.display.flip()
 
-
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -110,7 +109,11 @@ class GameOfLifeGUI:
                     self.elapsed_time.append(elapsed_time)
                     print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
                     self.draw_board()
-                    self.draw_curve(data=self.elapsed_time, x_label='Etapes', y_label='Temps exécution (ms)')
+                    self.draw_curve(
+                        data=self.elapsed_time,
+                        x_label="Temps",
+                        y_label="Temps exécution",
+                    )
                     pygame.display.flip()
                 elif event.key == pygame.K_s:
                     filename = "game_state.txt"
