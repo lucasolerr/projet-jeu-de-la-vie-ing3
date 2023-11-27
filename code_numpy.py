@@ -89,6 +89,10 @@ class GameOfLifeGUI:
 
         # Afficher l'image à la position spécifiée
         self.screen.blit(image, (1080, 40))
+        median_time = np.median(self.elapsed_time)
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"Median Time: {median_time:.2f} ms", True, (0, 0, 0))
+        self.screen.blit(text, (1080, 10))
         pygame.display.flip()
 
 
@@ -102,10 +106,11 @@ class GameOfLifeGUI:
                     self.game.update_board()
                     end_time = time.time()
                     elapsed_time = end_time - start_time
+                    elapsed_time = (end_time - start_time) * 1000
                     self.elapsed_time.append(elapsed_time)
-                    print(f"Time taken for update: {elapsed_time:.4f} seconds")
+                    print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
                     self.draw_board()
-                    self.draw_curve(data=self.elapsed_time, x_label='Temps', y_label='Temps exécution')
+                    self.draw_curve(data=self.elapsed_time, x_label='Etapes', y_label='Temps exécution (ms)')
                     pygame.display.flip()
                 elif event.key == pygame.K_s:
                     filename = "game_state.txt"
