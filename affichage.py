@@ -149,18 +149,18 @@ class GameMenu:
         self,
         screen,
         items,
-        bg_color=(0, 0, 0),
+        background_image_path="image/fond_noel.jpg",
         font=None,
         font_size=100,
         font_color=(255, 255, 255),
-        hover_color=(255, 0, 0),  # New attribute for hover color
+        hover_color=(16, 25, 80),  # New attribute for hover color
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
 
         # Background Main Menu
-        self.bg_color = bg_color
+        self.background_image = pygame.image.load(background_image_path)
 
         # Gère l'écart entre le cadre de sélection et le texte de l'élément
         self.paddingx = 10
@@ -248,7 +248,8 @@ class GameMenu:
                             break
 
             self.current_item = self.menu_items[self.index_selected]
-            self.screen.fill(self.bg_color)
+            self.screen.blit(self.background_image, (100, 120))
+            # self.screen.fill(self.bg_color)
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
                 # Change font color when the mouse is over an item
@@ -259,17 +260,6 @@ class GameMenu:
 
                 self.screen.blit(label, (posx, posy))
                 name, label, (width, height), (posx, posy) = self.current_item
-                pygame.draw.rect(
-                    self.screen,
-                    (255, 255, 255),
-                    [
-                        posx - self.paddingx,
-                        posy - self.paddingy,
-                        width + self.paddingx + self.paddingx,
-                        height + self.paddingy - 30,
-                    ],
-                    2,
-                )
 
             pygame.display.flip()
 
@@ -288,7 +278,13 @@ class GameMenu:
 
 class GridSizeMenu:
     def __init__(
-        self, screen, game_menu, font=None, font_size=50, font_color=(255, 255, 255)
+        self,
+        screen,
+        game_menu,
+        font=None,
+        font_size=50,
+        font_color=(255, 255, 255),
+        background_image_path="image/fond_noel.jpg",
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
@@ -304,6 +300,7 @@ class GridSizeMenu:
         self.game_menu = game_menu
 
         self.user_input = ""
+        self.background_image = pygame.image.load(background_image_path)
 
     def run(self):
         choix_loop = True
@@ -352,7 +349,8 @@ class GridSizeMenu:
                     ):
                         self.user_input += event.unicode
 
-            self.screen.fill(self.bg_color)
+            # self.screen.fill(self.bg_color)
+            self.screen.blit(self.background_image, (100, 120))
 
             pygame.draw.rect(
                 self.screen,
@@ -367,9 +365,9 @@ class GridSizeMenu:
             posx = (self.scr_width / 2) - (width / 2)
             posy = (self.scr_height / 2) - height
             self.screen.blit(label1, (posx, posy))
-            label = self.font.render(f"{self.user_input} ", 1, (255, 255, 255))
-            posx = self.scr_width / 2 - 100
-            posy = self.scr_height / 2 - 10
+            label = self.font.render(f"{self.user_input} ", 1, (16, 25, 80))
+            posx = self.scr_width / 2 - 20
+            posy = self.scr_height / 2 - 5
             self.screen.blit(label, (posx, posy))
 
             pygame.display.flip()
@@ -377,7 +375,7 @@ class GridSizeMenu:
 
 if __name__ == "__main__":
     # Taille de la fenêtre
-    screen = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
+    screen = pygame.display.set_mode((1920, 1080))
 
     # Éléments du menu
     menu_items = ["Jouer", "Charger", "Quitter"]
