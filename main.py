@@ -1,9 +1,9 @@
-from Jeu import Jouer
+from Jeu import Boucle_principale
 from GrilleElement import Grille
+import pygame
+from affichage import GameMenu
 
 if __name__ == "__main__":
-    print("Bonjour Monde!!")
-
     # créer la grille
     # blindage pour être sur que la taille est un nb entier
     while True:
@@ -19,4 +19,17 @@ if __name__ == "__main__":
     lignes = int(lignes)  # pour caster le nb
     colonnes = lignes
 grille = Grille(lignes, colonnes)
-Jouer(grille)
+
+# Taille de la fenêtre
+screen = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
+
+# Éléments du menu
+menu_items = ["Jouer", "Charger", "Quitter"]
+
+# Création du menu
+menu = GameMenu(screen, menu_items)
+
+# Exécution du menu
+menu.run()
+
+# Boucle_principale(grille)
