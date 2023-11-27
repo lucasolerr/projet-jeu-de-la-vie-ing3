@@ -1,5 +1,7 @@
 import numpy as np
 import pygame
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import time
 
 
@@ -46,6 +48,7 @@ class GameOfLifeGUI:
         self.width = self.game.width * self.cell_size
         self.height = self.game.height * self.cell_size
         self.screen = pygame.display.set_mode((1920, 1080))
+        self.elapsed_time = list()
         pygame.display.set_caption("Game of Life")
 
         self.running = True
@@ -67,9 +70,25 @@ class GameOfLifeGUI:
                         ),
                     )
     
-    def draw_curve(self, data):
-        for i in range(1, len(data)):
-            pygame.draw.line(self.screen, self.curve_color, (i - 1, self.height - data[i - 1]), (i, self.height - data[i]), self.curve_width)
+    def draw_curve(self, data, color=(0,0,255), width=2, x_label=None, y_label=None):
+        
+        fig, ax = plt.subplots(figsize=(8,4))
+        ax.plot(data, linewidth=width)
+        ax.set_xlabel(x_label)
+        ax.set_ylabel(y_label)
+        ax.set_title('Matplotlib Plot')
+
+        # Convertir le graphique en image Pygame
+        canvas = FigureCanvas(fig)
+        canvas.draw()
+
+        size = canvas.get_width_height()
+        image = pygame.image.fromstring(canvas.tostring_rgb(), size, "RGB")
+
+        # Afficher l'image à la position spécifiée
+        self.screen.blit(image, (1080, 40))
+        pygame.display.flip()
+
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -81,8 +100,11 @@ class GameOfLifeGUI:
                     self.game.update_board()
                     end_time = time.time()
                     elapsed_time = end_time - start_time
+                    self.elapsed_time.append(elapsed_time)
                     print(f"Time taken for update: {elapsed_time:.4f} seconds")
                     self.draw_board()
+                    self.draw_curve(data=self.elapsed_time, x_label='Temps', y_label='Temps exécution')
+                    pygame.display.flip()
                 elif event.key == pygame.K_s:
                     filename = "game_state.txt"
                     self.game.save_to_file(filename)
@@ -98,7 +120,6 @@ class GameOfLifeGUI:
         while self.running:
             self.handle_events()
             self.clock.tick(10)  # Adjust the speed as needed
-            self.draw_board()
             pygame.display.flip()
 
 
