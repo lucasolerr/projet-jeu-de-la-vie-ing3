@@ -48,6 +48,7 @@ class GameOfLifeGUI:
         self.height = self.game.height * self.cell_size
         self.screen = pygame.display.set_mode((1920, 1080))
         self.elapsed_time = list()
+        self.alive_cells = list()
         pygame.display.set_caption("Game of Life")
 
         self.running = True
@@ -69,7 +70,7 @@ class GameOfLifeGUI:
                         ),
                     )
 
-    def draw_curve(self, data, color=(0, 0, 255), width=2, x_label=None, y_label=None):
+    def draw_curve(self, data, color=(0, 0, 255), width=2, x_label=None, y_label=None, offset=(1080, 10)):
         fig, ax = plt.subplots(figsize=(8, 4))
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
@@ -83,14 +84,15 @@ class GameOfLifeGUI:
         image = pygame.image.fromstring(canvas.tostring_rgb(), size, "RGB")
 
         # Afficher l'image à la position spécifiée
-        self.screen.blit(image, (1080, 40))
-        median_time = np.median(self.elapsed_time)
+        self.screen.blit(image, offset)
+
+    def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
         text = font.render(
-            f"Temps médian d'exécution : {median_time:.2f} ms", True, (0, 0, 0)
+            str, True, (0, 0, 0)
         )
-        self.screen.blit(text, (1080, 10))
-        pygame.display.flip()
+        self.screen.blit(text, offset)
+
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -104,6 +106,8 @@ class GameOfLifeGUI:
                     elapsed_time = end_time - start_time
                     elapsed_time = (end_time - start_time) * 1000
                     self.elapsed_time.append(elapsed_time)
+                    alive_cells_count = np.sum(self.game.board)
+                    self.alive_cells.append(alive_cells_count)
                     print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
                     self.draw_board()
                     self.draw_curve(
@@ -111,6 +115,16 @@ class GameOfLifeGUI:
                         x_label="Etapes",
                         y_label="Temps exécution (ms)",
                     )
+                    self.draw_curve(
+                        data=self.alive_cells,
+                        x_label="Etapes",
+                        y_label="Nb cellules Vivantes",
+                        offset=(1080,500)
+                    )
+                    median_time = np.median(self.elapsed_time)
+                    self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080,30))
+                    nb_cell = np.sum(self.game.board)
+                    self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
                     pygame.display.flip()
                 elif event.key == pygame.K_s:
                     filename = "game_state.txt"
