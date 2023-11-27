@@ -40,10 +40,14 @@ class GameOfLife:
 class GameOfLifeGUI:
     def __init__(self, game):
         self.game = game
-        self.cell_size = 5  # Adjust the cell size as needed
+        self.cell_size = min(
+            1000 // game.width, 1000 // game.height
+        )  # Adjust the cell size as needed
+        self.curve_color = (0, 0, 255)
+        self.curve_width = 2
         self.width = self.game.width * self.cell_size
         self.height = self.game.height * self.cell_size
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.screen = pygame.display.set_mode((1920, 1080))
         pygame.display.set_caption("Game of Life")
 
         self.running = True
@@ -58,14 +62,22 @@ class GameOfLifeGUI:
                         self.screen,
                         (0, 0, 0),
                         (
-                            j * self.cell_size,
-                            i * self.cell_size,
+                            j * self.cell_size + 40,
+                            i * self.cell_size + 40,
                             self.cell_size,
                             self.cell_size,
                         ),
                     )
 
-        pygame.display.flip()
+    def draw_curve(self, data):
+        for i in range(1, len(data)):
+            pygame.draw.line(
+                self.screen,
+                self.curve_color,
+                (i - 1, self.height - data[i - 1]),
+                (i, self.height - data[i]),
+                self.curve_width,
+            )
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -94,12 +106,14 @@ class GameOfLifeGUI:
         while self.running:
             self.handle_events()
             self.clock.tick(10)  # Adjust the speed as needed
+            self.draw_board()
+            pygame.display.flip()
 
 
 if __name__ == "__main__":
     pygame.init()
 
-    game = GameOfLife(width=50, height=50)
+    game = GameOfLife(width=200, height=200)
     gui = GameOfLifeGUI(game)
 
     gui.run()
