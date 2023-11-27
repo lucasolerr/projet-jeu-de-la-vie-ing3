@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # ##
 
     # Initialisation de Pygame
-    matplotlib.use('TkAgg')
+    matplotlib.use("TkAgg")
     pygame.init()
     # Taille de la fenêtre
     screen = pygame.display.set_mode((1920, 1080))

@@ -5,8 +5,6 @@ from GrilleElement import Grille
 from code_numpy import jeu_principal
 
 
-
-
 class GameMenu:
     def __init__(
         self,
@@ -114,7 +112,6 @@ class GameMenu:
             self.screen.blit(self.background_image, (100, 120))
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
-
                 if self.current_item == [name, label, (width, height), (posx, posy)]:
                     label = self.font.render(name, 1, self.hover_color)
                 else:
@@ -141,8 +138,12 @@ class GameMenu:
 
 class GridSizeMenu:
     def __init__(
-        self, screen, game_menu, font=None, font_size=50,
-            background_image_path = "image/fond_noel.jpg"
+        self,
+        screen,
+        game_menu,
+        font=None,
+        font_size=50,
+        background_image_path="image/fond_noel.jpg",
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
@@ -157,7 +158,7 @@ class GridSizeMenu:
         self.current_item = ""
         self.game_menu = game_menu
 
-        #self.user_input = ""
+        # self.user_input = ""
         self.background_image = pygame.image.load(background_image_path)
 
     def run(self):
@@ -185,7 +186,6 @@ class GridSizeMenu:
                                 self.game_menu.start_selected = False
                                 self.game_menu.playing = True
                                 choix_loop = False
-
 
                         except ValueError:
                             print("Veuillez entrer un nombre valide.")
