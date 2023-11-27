@@ -71,14 +71,13 @@ class GameOfLifeGUI:
                             self.cell_size,
                         ),
                     )
-    
-    def draw_curve(self, data, color=(0,0,255), width=2, x_label=None, y_label=None):
-        
-        fig, ax = plt.subplots(figsize=(8,4))
+
+    def draw_curve(self, data, color=(0, 0, 255), width=2, x_label=None, y_label=None):
+        fig, ax = plt.subplots(figsize=(8, 4))
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
-        ax.set_title('Matplotlib Plot')
+        ax.set_title("Matplotlib Plot")
 
         # Convertir le graphique en image Pygame
         canvas = FigureCanvas(fig)
@@ -90,7 +89,6 @@ class GameOfLifeGUI:
         # Afficher l'image à la position spécifiée
         self.screen.blit(image, (1080, 40))
         pygame.display.flip()
-
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -105,7 +103,11 @@ class GameOfLifeGUI:
                     self.elapsed_time.append(elapsed_time)
                     print(f"Time taken for update: {elapsed_time:.4f} seconds")
                     self.draw_board()
-                    self.draw_curve(data=self.elapsed_time, x_label='Temps', y_label='Temps exécution')
+                    self.draw_curve(
+                        data=self.elapsed_time,
+                        x_label="Temps",
+                        y_label="Temps exécution",
+                    )
                     pygame.display.flip()
                 elif event.key == pygame.K_s:
                     filename = "game_state.txt"
