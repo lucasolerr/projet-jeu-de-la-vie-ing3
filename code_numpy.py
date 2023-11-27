@@ -25,7 +25,7 @@ class GameOfLife:
 
         neighbors_count = scipy.signal.convolve2d(self.board, kernel, mode='same', boundary='wrap')
 
-        live_neighbors = neighbors_count - self.board
+        live_neighbors = neighbors_count
         self.board = np.where(
             (self.board == 1) & ((live_neighbors < 2) | (live_neighbors > 3)),
             0,
@@ -137,7 +137,7 @@ def jeu_principal(taille):
 if __name__ == "__main__":
     pygame.init()
 
-    game = GameOfLife(width=1000, height=1000)
+    game = GameOfLife(width=100, height=100)
     gui = GameOfLifeGUI(game)
 
     gui.run()
