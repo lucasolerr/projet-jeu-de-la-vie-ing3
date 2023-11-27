@@ -19,11 +19,11 @@ class GameOfLife:
         self.board = np.loadtxt(filename, dtype=int)
 
     def update_board(self):
-        kernel = np.array([[1, 1, 1],
-                           [1, 0, 1],
-                           [1, 1, 1]])
+        kernel = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
 
-        neighbors_count = scipy.signal.convolve2d(self.board, kernel, mode='same', boundary='wrap')
+        neighbors_count = scipy.signal.convolve2d(
+            self.board, kernel, mode="same", boundary="wrap"
+        )
 
         live_neighbors = neighbors_count - self.board
         self.board = np.where(
@@ -35,6 +35,7 @@ class GameOfLife:
                 np.where((self.board == 0) & (live_neighbors == 3), 1, self.board),
             ),
         )
+
 
 class GameOfLifeGUI:
     def __init__(self, game):
@@ -86,7 +87,9 @@ class GameOfLifeGUI:
         self.screen.blit(image, (1080, 40))
         median_time = np.median(self.elapsed_time)
         font = pygame.font.Font(None, 36)
-        text = font.render(f"Temps médian d'exécution : {median_time:.2f} ms", True, (0, 0, 0))
+        text = font.render(
+            f"Temps médian d'exécution : {median_time:.2f} ms", True, (0, 0, 0)
+        )
         self.screen.blit(text, (1080, 10))
         pygame.display.flip()
 
@@ -133,6 +136,7 @@ def jeu_principal(taille):
     gui = GameOfLifeGUI(game)
 
     gui.run()
+
 
 if __name__ == "__main__":
     pygame.init()
