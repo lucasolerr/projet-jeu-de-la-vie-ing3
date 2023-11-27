@@ -107,7 +107,9 @@ class GameMenu:
                             break
 
             self.current_item = self.menu_items[self.index_selected]
-            scaled_background = pygame.transform.scale(self.background_image, (self.scr_width, self.scr_height))
+            scaled_background = pygame.transform.scale(
+                self.background_image, (self.scr_width, self.scr_height)
+            )
             self.screen.blit(scaled_background, (0, 0))
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
@@ -132,10 +134,7 @@ class GameMenu:
                     self.quit_select = True
                     mainloop = False
 
-
             pygame.display.flip()
-
-
 
 
 class GridSizeMenu:
@@ -209,7 +208,9 @@ class GridSizeMenu:
                     ):
                         self.game_menu.user_input += event.unicode
 
-            scaled_background = pygame.transform.scale(self.background_image, (self.scr_width, self.scr_height))
+            scaled_background = pygame.transform.scale(
+                self.background_image, (self.scr_width, self.scr_height)
+            )
             self.screen.blit(scaled_background, (0, 0))
 
             pygame.draw.rect(
@@ -232,6 +233,3 @@ class GridSizeMenu:
             self.screen.blit(label, (posx, posy))
 
             pygame.display.flip()
-
-
-
