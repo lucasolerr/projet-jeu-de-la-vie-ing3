@@ -22,17 +22,16 @@ class GameOfLife:
         kernel = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
 
         neighbors_count = scipy.signal.convolve2d(
-            self.board, kernel, mode="same", boundary="wrap"
+            self.board, kernel, mode="same", boundary="fill", fillvalue=0
         )
 
-        live_neighbors = neighbors_count
         self.board = np.where(
-            (self.board == 1) & ((live_neighbors < 2) | (live_neighbors > 3)),
+            (self.board == 1) & ((neighbors_count < 2) | (neighbors_count > 3)),
             0,
             np.where(
-                (self.board == 1) & ((live_neighbors == 2) | (live_neighbors == 3)),
+                (self.board == 1) & ((neighbors_count == 2) | (neighbors_count == 3)),
                 1,
-                np.where((self.board == 0) & (live_neighbors == 3), 1, self.board),
+                np.where((self.board == 0) & (neighbors_count == 3), 1, self.board),
             ),
         )
 
@@ -141,7 +140,7 @@ def jeu_principal(taille):
 if __name__ == "__main__":
     pygame.init()
 
-    game = GameOfLife(width=100, height=100)
+    game = GameOfLife(width=50, height=50)
     gui = GameOfLifeGUI(game)
 
     gui.run()
