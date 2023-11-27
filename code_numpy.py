@@ -71,10 +71,9 @@ class GameOfLifeGUI:
                             self.cell_size,
                         ),
                     )
-    
-    def draw_curve(self, data, color=(0,0,255), width=2, x_label=None, y_label=None):
-        
-        fig, ax = plt.subplots(figsize=(8,4))
+
+    def draw_curve(self, data, color=(0, 0, 255), width=2, x_label=None, y_label=None):
+        fig, ax = plt.subplots(figsize=(8, 4))
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
