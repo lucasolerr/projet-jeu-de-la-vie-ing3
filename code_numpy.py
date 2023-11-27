@@ -70,7 +70,15 @@ class GameOfLifeGUI:
                         ),
                     )
 
-    def draw_curve(self, data, color=(0, 0, 255), width=2, x_label=None, y_label=None, offset=(1080, 10)):
+    def draw_curve(
+        self,
+        data,
+        color=(0, 0, 255),
+        width=2,
+        x_label=None,
+        y_label=None,
+        offset=(1080, 10),
+    ):
         fig, ax = plt.subplots(figsize=(8, 4))
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
@@ -88,11 +96,8 @@ class GameOfLifeGUI:
 
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
-        text = font.render(
-            str, True, (0, 0, 0)
-        )
+        text = font.render(str, True, (0, 0, 0))
         self.screen.blit(text, offset)
-
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -119,10 +124,12 @@ class GameOfLifeGUI:
                         data=self.alive_cells,
                         x_label="Etapes",
                         y_label="Nb cellules Vivantes",
-                        offset=(1080,500)
+                        offset=(1080, 500),
                     )
                     median_time = np.median(self.elapsed_time)
-                    self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080,30))
+                    self.draw_text(
+                        f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30)
+                    )
                     nb_cell = np.sum(self.game.board)
                     self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
                     pygame.display.flip()
