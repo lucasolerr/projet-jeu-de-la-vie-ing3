@@ -21,7 +21,7 @@ if __name__ == "__main__":
 grille = Grille(lignes, colonnes)
 
 # Taille de la fenêtre
-screen = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
+screen = pygame.display.set_mode((1920, 1080))
 
 # Éléments du menu
 menu_items = ["Jouer", "Charger", "Quitter"]
