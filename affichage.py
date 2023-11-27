@@ -278,8 +278,13 @@ class GameMenu:
 
 class GridSizeMenu:
     def __init__(
-        self, screen, game_menu, font=None, font_size=50, font_color=(255, 255, 255),
-            background_image_path = "image/fond_noel.jpg"
+        self,
+        screen,
+        game_menu,
+        font=None,
+        font_size=50,
+        font_color=(255, 255, 255),
+        background_image_path="image/fond_noel.jpg",
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
@@ -344,7 +349,7 @@ class GridSizeMenu:
                     ):
                         self.user_input += event.unicode
 
-            #self.screen.fill(self.bg_color)
+            # self.screen.fill(self.bg_color)
             self.screen.blit(self.background_image, (100, 120))
 
             pygame.draw.rect(
