@@ -1,4 +1,7 @@
-from Jeu import Boucle_principale
+import os
+
+import matplotlib
+
 from GrilleElement import Grille
 import pygame
 from affichage import GameMenu
@@ -25,6 +28,7 @@ if __name__ == "__main__":
     # ##
 
     # Initialisation de Pygame
+    matplotlib.use('TkAgg')
     pygame.init()
     # Taille de la fenêtre
     screen = pygame.display.set_mode((1920, 1080))

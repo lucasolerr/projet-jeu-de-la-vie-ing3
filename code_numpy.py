@@ -1,3 +1,6 @@
+import os
+
+import matplotlib
 import numpy as np
 import pygame
 import matplotlib.pyplot as plt
@@ -124,8 +127,17 @@ class GameOfLifeGUI:
             self.clock.tick(10)  # Adjust the speed as needed
             pygame.display.flip()
 
+def jeu_principal(taille):
+    os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
+    game = GameOfLife(width=taille, height=taille)
+    gui = GameOfLifeGUI(game)
+
+    gui.run()
+
 
 if __name__ == "__main__":
+    matplotlib.use('TkAgg')
+    os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
     pygame.init()
 
     game = GameOfLife(width=200, height=200)

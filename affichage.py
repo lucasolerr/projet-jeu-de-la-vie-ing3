@@ -2,146 +2,9 @@ import pygame
 import time
 
 from GrilleElement import Grille
+from code_numpy import jeu_principal
 
 
-def afficher_grille(
-    grille,
-    carres,
-    fenetre,
-    image_carre_mort,
-    image_carre_vivant,
-):
-    # Dessiner les carrés en fonction de leurs états
-    for i, rect in enumerate(carres):
-        ligne, colonne = i // grille.colonnes, i % grille.colonnes
-        cellule = grille.grille2D[ligne][colonne]
-        if cellule.check_actual_state():
-            fenetre.blit(image_carre_vivant, rect.topleft)
-        else:
-            fenetre.blit(image_carre_mort, rect.topleft)
-
-
-def afficher_grille_survol(
-    grille,
-    carres,
-    survole,
-    fenetre,
-    image_carre_survol,
-    image_carre_mort,
-    image_carre_vivant,
-):
-    for i, rect in enumerate(carres):
-        ligne, colonne = i // grille.colonnes, i % grille.colonnes
-        cellule = grille.grille2D[ligne][colonne]
-
-        if survole[i]:
-            fenetre.blit(image_carre_survol, rect.topleft)
-        elif cellule.check_actual_state():
-            fenetre.blit(image_carre_vivant, rect.topleft)
-        else:
-            fenetre.blit(image_carre_mort, rect.topleft)
-
-
-def affichage_general(grille):
-    # initialisation nombre iteration
-    iteration = 0
-
-    # Initialisation de Pygame
-    pygame.init()
-
-    # Définir la taille de la grille
-
-    taille_case = 12
-    nbr_case = grille.lignes
-
-    fenetre = pygame.display.set_mode((0, 0), pygame.WINDOWMAXIMIZED)
-    pygame.display.set_caption("Le jeu de la vie")
-
-    # image :
-    image_carre_mort = pygame.image.load("image/carre_mort.png")
-    image_carre_mort = pygame.transform.scale(
-        image_carre_mort, (taille_case, taille_case)
-    )
-
-    image_carre_vivant = pygame.image.load("image/carre_vivant.png")
-    image_carre_vivant = pygame.transform.scale(
-        image_carre_vivant, (taille_case, taille_case)
-    )
-
-    # liste de rectangles pour chaque carré
-    carres = [
-        pygame.Rect(
-            50 + x * taille_case, 20 + y * taille_case, taille_case, taille_case
-        )
-        for x in range(grille.colonnes)
-        for y in range(grille.lignes)
-    ]
-
-    #  liste pour suivre l'état survolé / cliqué de chaque carré
-    survole = [False] * (nbr_case * nbr_case)
-    etats_carres = [False] * (nbr_case * nbr_case)
-
-    # Boucle principale
-    en_cours = True
-    while en_cours:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                en_cours = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Vérifiez si le clic bouton gauche
-                    pos_souris = pygame.mouse.get_pos()
-                    for i, rect in enumerate(carres):
-                        if rect.collidepoint(pos_souris):
-                            etats_carres[i] = not etats_carres[i]  # Mort / Vivant
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    en_cours = False  # Quitter la fenêtre si Échap est pressé
-                if event.key == pygame.K_RETURN:
-                    debut = time.time()
-                    grille.etat_suivant()
-                    fin = time.time()
-                    temps_execution = fin - debut
-                    print(f"Temps d'exécution : {temps_execution:.6f} secondes")
-                    """
-                    # Nombre d'itération
-                    iteration += 1
-
-                    # Calculer le nombre de cellules vivantes
-                    vivantes = grille.update_and_count_vivantes()
-
-                    # affichage du graphique
-                    if iteration >= 1:  # verification que le nombre d'iteration n'est pas nul
-                        graph.Afficher_Graph(iteration, vivantes)
-                        # Mise à jour du graphique
-                        graph.update_graph(iteration, vivantes)
-                    """
-
-        # Position de la souris
-        pos_souris = pygame.mouse.get_pos()
-
-        # Survole l'un des carrés
-        for i, rect in enumerate(carres):
-            if rect.collidepoint(pos_souris):
-                survole[i] = True
-            else:
-                survole[i] = False
-
-        fenetre.fill((255, 255, 255))
-
-        afficher_grille(
-            grille,
-            carres,
-            fenetre,
-            image_carre_mort,
-            image_carre_vivant,
-        )
-        pygame.display.flip()
-
-    pygame.quit()
-
-
-# Initialisation de Pygame
-pygame.init()
 
 
 class GameMenu:
@@ -153,13 +16,13 @@ class GameMenu:
         font=None,
         font_size=100,
         font_color=(255, 255, 255),
-        hover_color=(16, 25, 80),  # New attribute for hover color
+        hover_color=(16, 25, 80),  # Couleur text hover
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
 
-        # Background Main Menu
+        # image de fond
         self.background_image = pygame.image.load(background_image_path)
 
         # Gère l'écart entre le cadre de sélection et le texte de l'élément
@@ -172,18 +35,18 @@ class GameMenu:
         self.quit_select = False
         self.playing = False
 
+        self.user_input = ""
+
         # Le premier élement sera sélectionné par défaut avec l'index 0.
-        # Si le second élément est sélectionné l'index passera à 1, etc.
         self.index_selected = 0
 
-        # init font
         self.font = pygame.font.Font(font, font_size)
 
-        # Element courant sélectionné
+        # Element sélectionné
         self.current_item = ()
         self.selected_action = None
 
-        # Hover color
+        # Hover couleur
         self.hover_color = hover_color
 
         # Positionnement des éléments visuels
@@ -230,7 +93,7 @@ class GameMenu:
                             self.selected_action = self.current_item[0]
 
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    # Check if the left mouse button is clicked
+                    # Verifie le clique gauche de la souris
                     mouse_pos = event.pos
                     for index, (_, _, (width, height), (posx, posy)) in enumerate(
                         self.menu_items
@@ -249,10 +112,9 @@ class GameMenu:
 
             self.current_item = self.menu_items[self.index_selected]
             self.screen.blit(self.background_image, (100, 120))
-            # self.screen.fill(self.bg_color)
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
-                # Change font color when the mouse is over an item
+
                 if self.current_item == [name, label, (width, height), (posx, posy)]:
                     label = self.font.render(name, 1, self.hover_color)
                 else:
@@ -267,7 +129,8 @@ class GameMenu:
                 if self.selected_action == "Jouer":
                     self.choose_grid_size()
                     if self.playing:
-                        affichage_general()
+                        self.user_input = int(self.user_input)
+                        jeu_principal(self.user_input)
 
                 elif self.selected_action == "Charger":
                     self.settings_selected = True
@@ -278,13 +141,8 @@ class GameMenu:
 
 class GridSizeMenu:
     def __init__(
-        self,
-        screen,
-        game_menu,
-        font=None,
-        font_size=50,
-        font_color=(255, 255, 255),
-        background_image_path="image/fond_noel.jpg",
+        self, screen, game_menu, font=None, font_size=50,
+            background_image_path = "image/fond_noel.jpg"
     ):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
@@ -299,7 +157,7 @@ class GridSizeMenu:
         self.current_item = ""
         self.game_menu = game_menu
 
-        self.user_input = ""
+        #self.user_input = ""
         self.background_image = pygame.image.load(background_image_path)
 
     def run(self):
@@ -317,23 +175,23 @@ class GridSizeMenu:
 
                     if event.key == pygame.K_RETURN:
                         try:
-                            selected_size = int(self.user_input)
+                            selected_size = int(self.game_menu.user_input)
                             print(
                                 f"Taille de la grille sélectionnée : {selected_size}x{selected_size}"
                             )
                             if selected_size >= 50:
                                 # FAIRE LA CREATION DE GRILLE ICI
-                                grille = Grille(selected_size, selected_size)
                                 self.game_menu.selected_action = None
                                 self.game_menu.start_selected = False
                                 self.game_menu.playing = True
                                 choix_loop = False
 
+
                         except ValueError:
                             print("Veuillez entrer un nombre valide.")
 
                     if event.key == pygame.K_BACKSPACE:
-                        self.user_input = self.user_input[:-1]
+                        self.game_menu.user_input = self.game_menu.user_input[:-1]
 
                     if event.key in (
                         pygame.K_0,
@@ -347,9 +205,8 @@ class GridSizeMenu:
                         pygame.K_8,
                         pygame.K_9,
                     ):
-                        self.user_input += event.unicode
+                        self.game_menu.user_input += event.unicode
 
-            # self.screen.fill(self.bg_color)
             self.screen.blit(self.background_image, (100, 120))
 
             pygame.draw.rect(
@@ -365,9 +222,10 @@ class GridSizeMenu:
             posx = (self.scr_width / 2) - (width / 2)
             posy = (self.scr_height / 2) - height
             self.screen.blit(label1, (posx, posy))
-            label = self.font.render(f"{self.user_input} ", 1, (16, 25, 80))
-            posx = self.scr_width / 2 - 20
-            posy = self.scr_height / 2 - 5
+
+            label = self.font.render(f"{self.game_menu.user_input} ", 1, (16, 25, 80))
+            posx = self.scr_width / 2 - 10
+            posy = self.scr_height / 2 - 1
             self.screen.blit(label, (posx, posy))
 
             pygame.display.flip()
