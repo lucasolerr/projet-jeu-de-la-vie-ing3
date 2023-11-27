@@ -139,6 +139,7 @@ def affichage_general(grille):
 
     pygame.quit()
 
+
 # Initialisation de Pygame
 pygame.init()
 
@@ -159,7 +160,7 @@ class GameMenu:
         self.scr_height = self.screen.get_rect().height
 
         # Background Main Menu
-        #self.bg_color = bg_color
+        # self.bg_color = bg_color
         self.background_image = pygame.image.load(background_image_path)
 
         # Gère l'écart entre le cadre de sélection et le texte de l'élément
@@ -185,7 +186,6 @@ class GameMenu:
 
         # Hover color
         self.hover_color = hover_color
-
 
         # Positionnement des éléments visuels
         self.menu_items = []
@@ -250,7 +250,7 @@ class GameMenu:
 
             self.current_item = self.menu_items[self.index_selected]
             self.screen.blit(self.background_image, (100, 120))
-            #self.screen.fill(self.bg_color)
+            # self.screen.fill(self.bg_color)
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
                 # Change font color when the mouse is over an item
@@ -277,7 +277,6 @@ class GameMenu:
                 #
                 # ###
 
-
             pygame.display.flip()
 
             if self.selected_action:
@@ -291,7 +290,6 @@ class GameMenu:
                 elif self.selected_action == "Quitter":
                     self.quit_select = True
                     mainloop = False
-
 
 
 class GridSizeMenu:
@@ -312,9 +310,6 @@ class GridSizeMenu:
         self.game_menu = game_menu
 
         self.user_input = ""
-
-
-
 
     def run(self):
         choix_loop = True
@@ -365,7 +360,6 @@ class GridSizeMenu:
 
             self.screen.fill(self.bg_color)
             self.screen.blit(self.background_image, (100, 120))
-
 
             pygame.draw.rect(
                 self.screen,
