@@ -40,7 +40,9 @@ class GameOfLife:
 class GameOfLifeGUI:
     def __init__(self, game):
         self.game = game
-        self.cell_size =  min(1000 // game.width, 1000 // game.height)  # Adjust the cell size as needed
+        self.cell_size = min(
+            1000 // game.width, 1000 // game.height
+        )  # Adjust the cell size as needed
         self.curve_color = (0, 0, 255)
         self.curve_width = 2
         self.width = self.game.width * self.cell_size
@@ -66,10 +68,16 @@ class GameOfLifeGUI:
                             self.cell_size,
                         ),
                     )
-    
+
     def draw_curve(self, data):
         for i in range(1, len(data)):
-            pygame.draw.line(self.screen, self.curve_color, (i - 1, self.height - data[i - 1]), (i, self.height - data[i]), self.curve_width)
+            pygame.draw.line(
+                self.screen,
+                self.curve_color,
+                (i - 1, self.height - data[i - 1]),
+                (i, self.height - data[i]),
+                self.curve_width,
+            )
 
     def handle_events(self):
         for event in pygame.event.get():
