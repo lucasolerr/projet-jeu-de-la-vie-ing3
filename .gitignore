@@ -1,5 +1,7 @@
 venv/*
 venv
+.venv/*
+.venv
 .ipynb_checkpoints/
 __pycache__/*
 game_state.txt

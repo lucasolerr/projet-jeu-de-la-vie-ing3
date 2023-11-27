@@ -1,5 +1,4 @@
 import pygame
-
 from code_numpy import jeu_principal
 
 
