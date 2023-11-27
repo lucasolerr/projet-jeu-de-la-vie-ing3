@@ -31,7 +31,8 @@ if __name__ == "__main__":
     matplotlib.use("TkAgg")
     pygame.init()
     # Taille de la fenêtre
-    screen = pygame.display.set_mode((1920, 1080))
+    info = pygame.display.Info()
+    screen = pygame.display.set_mode((info.current_w, info.current_h))
 
     # Éléments du menu
     menu_items = ["Jouer", "Charger", "Quitter"]

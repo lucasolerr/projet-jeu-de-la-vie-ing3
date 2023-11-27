@@ -1,7 +1,5 @@
 import pygame
-import time
 
-from GrilleElement import Grille
 from code_numpy import jeu_principal
 
 
@@ -109,7 +107,8 @@ class GameMenu:
                             break
 
             self.current_item = self.menu_items[self.index_selected]
-            self.screen.blit(self.background_image, (100, 120))
+            scaled_background = pygame.transform.scale(self.background_image, (self.scr_width, self.scr_height))
+            self.screen.blit(scaled_background, (0, 0))
 
             for name, label, (width, height), (posx, posy) in self.menu_items:
                 if self.current_item == [name, label, (width, height), (posx, posy)]:
@@ -120,20 +119,23 @@ class GameMenu:
                 self.screen.blit(label, (posx, posy))
                 name, label, (width, height), (posx, posy) = self.current_item
 
-            pygame.display.flip()
-
             if self.selected_action:
                 if self.selected_action == "Jouer":
                     self.choose_grid_size()
                     if self.playing:
                         self.user_input = int(self.user_input)
                         jeu_principal(self.user_input)
-
+                        mainloop = False
                 elif self.selected_action == "Charger":
                     self.settings_selected = True
                 elif self.selected_action == "Quitter":
                     self.quit_select = True
                     mainloop = False
+
+
+            pygame.display.flip()
+
+
 
 
 class GridSizeMenu:
@@ -207,7 +209,8 @@ class GridSizeMenu:
                     ):
                         self.game_menu.user_input += event.unicode
 
-            self.screen.blit(self.background_image, (100, 120))
+            scaled_background = pygame.transform.scale(self.background_image, (self.scr_width, self.scr_height))
+            self.screen.blit(scaled_background, (0, 0))
 
             pygame.draw.rect(
                 self.screen,
@@ -231,15 +234,4 @@ class GridSizeMenu:
             pygame.display.flip()
 
 
-if __name__ == "__main__":
-    # Taille de la fenêtre
-    screen = pygame.display.set_mode((1920, 1080))
 
-    # Éléments du menu
-    menu_items = ["Jouer", "Charger", "Quitter"]
-
-    # Création du menu
-    menu = GameMenu(screen, menu_items)
-
-    # Exécution du menu
-    menu.run()
