@@ -1,5 +1,6 @@
 import pygame
 import time
+import graph
 
 from GrilleElement import Grille
 
@@ -102,19 +103,21 @@ def affichage_general(grille):
                     fin = time.time()
                     temps_execution = fin - debut
                     print(f"Temps d'exécution : {temps_execution:.6f} secondes")
-                    """
+                    
                     # Nombre d'itération
                     iteration += 1
 
                     # Calculer le nombre de cellules vivantes
                     vivantes = grille.update_and_count_vivantes()
+                    #couleur de la courbe
+                    couleur_ligne = (0, 0, 255)
 
                     # affichage du graphique
                     if iteration >= 1:  # verification que le nombre d'iteration n'est pas nul
                         graph.Afficher_Graph(iteration, vivantes)
                         # Mise à jour du graphique
                         graph.update_graph(iteration, vivantes)
-                    """
+                    
 
         # Position de la souris
         pos_souris = pygame.mouse.get_pos()
