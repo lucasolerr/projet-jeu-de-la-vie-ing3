@@ -99,6 +99,8 @@ class GameOfLifeGUI:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
                 if event.key == pygame.K_RETURN:
                     start_time = time.time()
                     self.game.update_board()
