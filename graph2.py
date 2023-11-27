@@ -1,13 +1,14 @@
 import pygame
 import sys
 
-#code graph en pygame à adapter
-#ajouter le compteur de cellules vivantes à chaque itération
+# code graph en pygame à adapter
+# ajouter le compteur de cellules vivantes à chaque itération
 
 
 # Listes vides x, y graph
 x_data = []
 y_data = []
+
 
 # Initialisation graphique
 def init_graph():
@@ -27,6 +28,7 @@ def init_graph():
 
     return fenetre, couleur_ligne
 
+
 # Fonction pour mettre à jour le graphique lors de chaque itération
 def update_graph(fenetre, x, y, couleur_ligne):
     global x_data, y_data
@@ -37,21 +39,30 @@ def update_graph(fenetre, x, y, couleur_ligne):
 
     # Dessiner la ligne
     for i in range(1, len(x_data)):
-        pygame.draw.line(fenetre, couleur_ligne, (x_data[i-1], y_data[i-1]), (x_data[i], y_data[i]), 2)
+        pygame.draw.line(
+            fenetre,
+            couleur_ligne,
+            (x_data[i - 1], y_data[i - 1]),
+            (x_data[i], y_data[i]),
+            2,
+        )
 
     pygame.display.flip()
     pygame.time.delay(10)  # Pause courte pour actualiser le graphique
+
 
 # Fonction pour afficher le graphique et le garder ouvert
 def show_graph():
     pygame.quit()
     sys.exit()
 
+
 # Fonction pour réinitialiser les données du graphique
 def reset_graph():
     global x_data, y_data
     x_data.clear()
     y_data.clear()
+
 
 # Fonction pour afficher le graphique
 def Afficher_Graph(iteration, vivantes, fenetre, couleur_ligne):

@@ -44,7 +44,7 @@ def Afficher_Graph(iteration, vivantes):
     update_graph(iteration, vivantes)
 
 
-'''if choix == "":
+"""if choix == "":
             grille.etat_suivant()
             grille.afficher_grille()
             # Nombre d'itération
@@ -58,4 +58,4 @@ def Afficher_Graph(iteration, vivantes):
             if iteration >= 1:  # verification que le nombre d'iteration n'est pas nul
                 graph.Afficher_Graph(iteration, vivantes)
                 # Mise à jour du graphique
-                graph.update_graph(iteration, vivantes)'''
+                graph.update_graph(iteration, vivantes)"""
