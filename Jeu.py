@@ -40,6 +40,7 @@ def Jouer():
             # Calculer le nombre de cellules vivantes
             vivantes = grille.update_and_count_vivantes()
 
+
             # affichage du graphique
             if iteration >= 1:  # verification que le nombre d'iteration n'est pas nul
                 graph.Afficher_Graph(iteration, vivantes)
