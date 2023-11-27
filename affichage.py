@@ -144,6 +144,7 @@ def affichage_general(grille):
 pygame.init()
 
 
+
 class GameMenu:
     def __init__(
         self,
