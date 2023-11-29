@@ -143,12 +143,10 @@ class GameOfLifeGUI:
         self.screen.blit(image, offset)
 
     def draw_button(self):
-
         self.screen.blit(self.button_play_image, self.button_play_rect)
         self.screen.blit(self.button_pause_image, self.button_pause_rect)
         self.screen.blit(self.button_save_image, self.button_save_rect)
         self.screen.blit(self.button_load_image, self.button_load_rect)
-
 
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
