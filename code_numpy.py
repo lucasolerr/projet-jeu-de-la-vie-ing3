@@ -52,6 +52,8 @@ class GameOfLifeGUI:
         self.running = True
         self.update = False
         self.pause = False
+        self.placement = False
+        self.selected_structure = None
         self.clock = pygame.time.Clock()
 
         self.button_play_image = pygame.image.load("image/bouton_play.png")
@@ -82,10 +84,34 @@ class GameOfLifeGUI:
         self.deco_bonnet_rect = self.deco_bonnet_image.get_rect()
         self.deco_bonnet_rect.topleft = (1440, 876)
 
+    def place_generator(self, i, j):
+        # Exemple de structure générateur (Gosper Glider Gun)
+        gun = np.array(
+            [
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+            ]
+        )
+        self.game.board[i:i+8, j:j+22] = gun
+    
+    def toggle_placement_mode(self):
+        self.placement = not self.placement
+        if self.placement:
+            # switch sur la touche
+            self.handle_keydown_event_placement()
+
     def update_cell_on_click(self, pos):
         # Convertir la position du clic en indices de tableau
         i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
 
+        if self.placement:
+            self.place_generator(i,j)
         # Assurez-vous que les indices sont valides
         if 0 <= i < self.game.height and 0 <= j < self.game.width:
             # Inverser l'état de la cellule
@@ -240,6 +266,11 @@ class GameOfLifeGUI:
             self.save_game_state()
         elif event.key == pygame.K_l:
             self.load_game_state()
+        elif event.key == pygame.K_SPACE:
+            self.pause = not self.pause
+        elif event.key == pygame.K_g:
+            self.placement = not self.placement 
+
 
     def reset_game_board(self):
         self.game.board = np.zeros((self.height, self.width), dtype=int)
