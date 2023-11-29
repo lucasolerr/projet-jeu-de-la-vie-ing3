@@ -39,9 +39,7 @@ class GameOfLife:
 class GameOfLifeGUI:
     def __init__(self, game):
         self.game = game
-        self.cell_size = min(
-            1000 // game.width, 1000 // game.height
-        ) 
+        self.cell_size = min(1000 // game.width, 1000 // game.height)
         self.curve_color = (0, 0, 255)
         self.curve_width = 2
         self.width = self.game.width * self.cell_size
@@ -127,7 +125,9 @@ class GameOfLifeGUI:
         y_label=None,
         offset=(1080, 10),
     ):
-        fig, ax = plt.subplots(figsize=(8, 4), facecolor=(135 / 255, 206 / 255, 250 / 255))
+        fig, ax = plt.subplots(
+            figsize=(8, 4), facecolor=(135 / 255, 206 / 255, 250 / 255)
+        )
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
