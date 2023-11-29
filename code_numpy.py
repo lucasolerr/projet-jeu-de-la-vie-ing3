@@ -90,19 +90,27 @@ class GameOfLifeGUI:
         self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect()
         self.deco_pere_noel_rect.topleft = (1646, 855)
 
-        self.deco_guirlande_droit1_image = pygame.image.load("image/guirlande_droit.png")
+        self.deco_guirlande_droit1_image = pygame.image.load(
+            "image/guirlande_droit.png"
+        )
         self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect()
         self.deco_guirlande_droit1_rect.topleft = (1815, 0)
 
-        self.deco_guirlande_droit2_image = pygame.image.load("image/guirlande_droit.png")
+        self.deco_guirlande_droit2_image = pygame.image.load(
+            "image/guirlande_droit.png"
+        )
         self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect()
         self.deco_guirlande_droit2_rect.topleft = (1815, 450)
 
-        self.deco_guirlande_gauche1_image = pygame.image.load("image/guirlande_gauche.png")
+        self.deco_guirlande_gauche1_image = pygame.image.load(
+            "image/guirlande_gauche.png"
+        )
         self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect()
         self.deco_guirlande_gauche1_rect.topleft = (0, 0)
 
-        self.deco_guirlande_gauche2_image = pygame.image.load("image/guirlande_gauche.png")
+        self.deco_guirlande_gauche2_image = pygame.image.load(
+            "image/guirlande_gauche.png"
+        )
         self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect()
         self.deco_guirlande_gauche2_rect.topleft = (0, 450)
 
@@ -223,11 +231,10 @@ class GameOfLifeGUI:
         self.screen.blit(self.deco_pere_noel_image, self.deco_pere_noel_rect)
         self.screen.blit(self.deco_cadeau_image, self.deco_cadeau_rect)
 
-        #self.screen.blit(self.deco_guirlande_droit1_image, self.deco_guirlande_droit1_rect)
-        #self.screen.blit(self.deco_guirlande_droit2_image, self.deco_guirlande_droit2_rect)
-        #self.screen.blit(self.deco_guirlande_gauche1_image, self.deco_guirlande_gauche1_rect)
-        #self.screen.blit(self.deco_guirlande_gauche2_image, self.deco_guirlande_gauche2_rect)
-
+        # self.screen.blit(self.deco_guirlande_droit1_image, self.deco_guirlande_droit1_rect)
+        # self.screen.blit(self.deco_guirlande_droit2_image, self.deco_guirlande_droit2_rect)
+        # self.screen.blit(self.deco_guirlande_gauche1_image, self.deco_guirlande_gauche1_rect)
+        # self.screen.blit(self.deco_guirlande_gauche2_image, self.deco_guirlande_gauche2_rect)
 
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
