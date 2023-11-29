@@ -80,6 +80,30 @@ class GameOfLifeGUI:
         self.deco_bonnet_rect = self.deco_bonnet_image.get_rect()
         self.deco_bonnet_rect.topleft = (1440, 876)
 
+        self.deco_cadeau_image = pygame.image.load("image/cadeau.png")
+        self.deco_cadeau_rect = self.deco_cadeau_image.get_rect()
+        self.deco_cadeau_rect.topleft = (1282, 886)
+
+        self.deco_pere_noel_image = pygame.image.load("image/pere_noel.png")
+        self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect()
+        self.deco_pere_noel_rect.topleft = (1646, 855)
+
+        self.deco_guirlande_droit1_image = pygame.image.load("image/guirlande_droit.png")
+        self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect()
+        self.deco_guirlande_droit1_rect.topleft = (1815, 0)
+
+        self.deco_guirlande_droit2_image = pygame.image.load("image/guirlande_droit.png")
+        self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect()
+        self.deco_guirlande_droit2_rect.topleft = (1815, 450)
+
+        self.deco_guirlande_gauche1_image = pygame.image.load("image/guirlande_gauche.png")
+        self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect()
+        self.deco_guirlande_gauche1_rect.topleft = (0, 0)
+
+        self.deco_guirlande_gauche2_image = pygame.image.load("image/guirlande_gauche.png")
+        self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect()
+        self.deco_guirlande_gauche2_rect.topleft = (0, 450)
+
     def update_cell_on_click(self, pos):
         # Convertir la position du clic en indices de tableau
         i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
@@ -163,6 +187,14 @@ class GameOfLifeGUI:
         self.screen.blit(self.deco_bonnet_image, self.deco_bonnet_rect)
         self.screen.blit(self.deco_gauche_image, self.deco_gauche_rect)
         self.screen.blit(self.deco_droit_image, self.deco_droit_rect)
+        self.screen.blit(self.deco_pere_noel_image, self.deco_pere_noel_rect)
+        self.screen.blit(self.deco_cadeau_image, self.deco_cadeau_rect)
+
+        #self.screen.blit(self.deco_guirlande_droit1_image, self.deco_guirlande_droit1_rect)
+        #self.screen.blit(self.deco_guirlande_droit2_image, self.deco_guirlande_droit2_rect)
+        #self.screen.blit(self.deco_guirlande_gauche1_image, self.deco_guirlande_gauche1_rect)
+        #self.screen.blit(self.deco_guirlande_gauche2_image, self.deco_guirlande_gauche2_rect)
+
 
 
 
