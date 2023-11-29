@@ -54,6 +54,22 @@ class GameOfLifeGUI:
         self.running = True
         self.clock = pygame.time.Clock()
 
+        self.button_play_image = pygame.image.load("image/bouton_play.png")
+        self.button_play_rect = self.button_play_image.get_rect()
+        self.button_play_rect.topleft = (1292, 964)
+
+        self.button_pause_image = pygame.image.load("image/bouton_pause.png")
+        self.button_pause_rect = self.button_pause_image.get_rect()
+        self.button_pause_rect.topleft = (1107, 964)
+
+        self.button_save_image = pygame.image.load("image/bouton_save.png")
+        self.button_save_rect = self.button_save_image.get_rect()
+        self.button_save_rect.topleft = (1472, 964)
+
+        self.button_load_image = pygame.image.load("image/bouton_load.png")
+        self.button_load_rect = self.button_save_image.get_rect()
+        self.button_load_rect.topleft = (1652, 964)
+
     def update_cell_on_click(self, pos):
         # Convertir la position du clic en indices de tableau
         i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
@@ -126,6 +142,14 @@ class GameOfLifeGUI:
         # Afficher l'image à la position spécifiée
         self.screen.blit(image, offset)
 
+    def draw_button(self):
+
+        self.screen.blit(self.button_play_image, self.button_play_rect)
+        self.screen.blit(self.button_pause_image, self.button_pause_rect)
+        self.screen.blit(self.button_save_image, self.button_save_rect)
+        self.screen.blit(self.button_load_image, self.button_load_rect)
+
+
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
         text = font.render(str, True, (0, 0, 0))
@@ -171,6 +195,7 @@ class GameOfLifeGUI:
                     )
                     nb_cell = np.sum(self.game.board)
                     self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
+                    self.draw_button()
                     pygame.display.flip()
                 elif event.key == pygame.K_s:
                     filename = "game_state.txt"
