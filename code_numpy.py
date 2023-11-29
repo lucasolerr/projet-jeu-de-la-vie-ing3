@@ -157,8 +157,33 @@ class GameOfLifeGUI:
         self.running = False
 
     def handle_mouse_click(self):
-        if pygame.mouse.get_pressed()[0]:  # Clic gauche
-            self.update_cell_on_click(pygame.mouse.get_pos())
+        if pygame.mouse.get_pressed()[0]:  # Left click
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            if self.button_play_rect.collidepoint(mouse_x, mouse_y):
+                # REPRISE DE LA SIMULATION
+
+                print("Reprise de la simulation.")
+
+            elif self.button_pause_rect.collidepoint(mouse_x, mouse_y):
+                # MISE EN PAUSE DE LA SIMULATION
+
+                print("Simulation en pause.")
+
+            elif self.button_save_rect.collidepoint(mouse_x, mouse_y):
+                # SAUVEGARDE DE LA GRILLE
+                filename = "game_state.txt"
+                self.game.save_to_file(filename)
+                print(f"Game state saved to {filename}")
+
+            elif self.button_load_rect.collidepoint(mouse_x, mouse_y):
+                # CHARGEMENT DE LA GRILLE
+                filename = "game_state.txt"
+                self.game.load_from_file(filename)
+                print(f"Game state loaded from {filename}")
+                self.draw_board()
+            else:
+                self.update_cell_on_click(pygame.mouse.get_pos())
+
 
     def handle_keydown_event(self, event):
         if event.key == pygame.K_ESCAPE:
