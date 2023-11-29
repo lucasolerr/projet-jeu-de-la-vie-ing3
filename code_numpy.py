@@ -164,8 +164,6 @@ class GameOfLifeGUI:
         self.screen.blit(self.deco_gauche_image, self.deco_gauche_rect)
         self.screen.blit(self.deco_droit_image, self.deco_droit_rect)
 
-
-
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
         text = font.render(str, True, (0, 0, 0))
