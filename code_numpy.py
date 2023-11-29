@@ -70,6 +70,18 @@ class GameOfLifeGUI:
         self.button_load_rect = self.button_save_image.get_rect()
         self.button_load_rect.topleft = (1652, 964)
 
+        self.deco_gauche_image = pygame.image.load("image/bois_cerf_gauche.png")
+        self.deco_gauche_rect = self.deco_gauche_image.get_rect()
+        self.deco_gauche_rect.topleft = (1083, 847)
+
+        self.deco_droit_image = pygame.image.load("image/bois_cerf_droit.png")
+        self.deco_droit_rect = self.deco_droit_image.get_rect()
+        self.deco_droit_rect.topleft = (1199, 838)
+
+        self.deco_bonnet_image = pygame.image.load("image/bonnet.png")
+        self.deco_bonnet_rect = self.deco_bonnet_image.get_rect()
+        self.deco_bonnet_rect.topleft = (1440, 876)
+
     def update_cell_on_click(self, pos):
         # Convertir la position du clic en indices de tableau
         i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
@@ -101,12 +113,12 @@ class GameOfLifeGUI:
                 self.alive_cells,
                 x_label="Etapes",
                 y_label="Nb cellules vivantes",
-                offset=(1080, 500),
+                offset=(1080, 450),
             )
             median_time = np.median(self.elapsed_time)
             self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
             nb_cell = np.sum(self.game.board)
-            self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
+            self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 450))
             self.update = False
 
     def draw_board(self):
@@ -177,6 +189,10 @@ class GameOfLifeGUI:
         self.screen.blit(self.button_save_image, self.button_save_rect)
         self.screen.blit(self.button_load_image, self.button_load_rect)
 
+        self.screen.blit(self.deco_bonnet_image, self.deco_bonnet_rect)
+        self.screen.blit(self.deco_gauche_image, self.deco_gauche_rect)
+        self.screen.blit(self.deco_droit_image, self.deco_droit_rect)
+
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
         text = font.render(str, True, (0, 0, 0))
@@ -209,10 +225,9 @@ class GameOfLifeGUI:
                 filename = "game_state.txt"
                 self.game.load_from_file(filename)
                 print(f"Game state loaded from {filename}")
-                self.draw_board()
+                self.handle_return_key()
             else:
                 self.update_cell_on_click(pygame.mouse.get_pos())
-
 
     def handle_keydown_event(self, event):
         if event.key == pygame.K_ESCAPE:
