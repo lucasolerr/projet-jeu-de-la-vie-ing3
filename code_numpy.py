@@ -41,7 +41,7 @@ class GameOfLifeGUI:
         self.game = game
         self.cell_size = min(
             1000 // game.width, 1000 // game.height
-        )  # Adjust the cell size as needed
+        ) 
         self.curve_color = (0, 0, 255)
         self.curve_width = 2
         self.width = self.game.width * self.cell_size
@@ -54,14 +54,28 @@ class GameOfLifeGUI:
         self.running = True
         self.clock = pygame.time.Clock()
 
+    def update_cell_on_click(self, pos):
+        # Convertir la position du clic en indices de tableau
+        i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
+
+        # Assurez-vous que les indices sont valides
+        if 0 <= i < self.game.height and 0 <= j < self.game.width:
+            # Inverser l'état de la cellule
+            self.game.board[i, j] = 1 - self.game.board[i, j]
+
+            # Redessiner la planche
+            self.draw_board()
+
     def draw_board(self):
-        self.screen.fill((255, 255, 255))  # White background
+        self.screen.fill((135, 206, 250))
+
+        # Dessiner les cellules
         for i in range(self.game.height):
             for j in range(self.game.width):
                 if self.game.board[i, j] == 1:
                     pygame.draw.rect(
                         self.screen,
-                        (0, 0, 0),
+                        (0, 0, 100),
                         (
                             j * self.cell_size + 40,
                             i * self.cell_size + 40,
@@ -70,16 +84,34 @@ class GameOfLifeGUI:
                         ),
                     )
 
+        # Dessiner la bordure autour de chaque cellule
+        for i in range(self.game.height + 1):
+            pygame.draw.line(
+                self.screen,
+                (0, 0, 0),
+                (40, i * self.cell_size + 40),
+                (40 + self.game.width * self.cell_size, i * self.cell_size + 40),
+                1,
+            )
+
+        for j in range(self.game.width + 1):
+            pygame.draw.line(
+                self.screen,
+                (0, 0, 0),
+                (j * self.cell_size + 40, 40),
+                (j * self.cell_size + 40, 40 + self.game.height * self.cell_size),
+                1,
+            )
+
     def draw_curve(
         self,
         data,
-        color=(0, 0, 255),
         width=2,
         x_label=None,
         y_label=None,
         offset=(1080, 10),
     ):
-        fig, ax = plt.subplots(figsize=(8, 4))
+        fig, ax = plt.subplots(figsize=(8, 4), facecolor=(135 / 255, 206 / 255, 250 / 255))
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
@@ -103,10 +135,15 @@ class GameOfLifeGUI:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Clic gauche
+                    self.update_cell_on_click(pygame.mouse.get_pos())
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
-                if event.key == pygame.K_RETURN:
+                elif event.key == pygame.K_r:
+                    self.game.board = np.zeros((self.height, self.width), dtype=int)
+                elif event.key == pygame.K_RETURN:
                     start_time = time.time()
                     self.game.update_board()
                     end_time = time.time()
