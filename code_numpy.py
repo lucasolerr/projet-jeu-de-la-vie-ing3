@@ -184,7 +184,6 @@ class GameOfLifeGUI:
             else:
                 self.update_cell_on_click(pygame.mouse.get_pos())
 
-
     def handle_keydown_event(self, event):
         if event.key == pygame.K_ESCAPE:
             self.handle_quit_event()
