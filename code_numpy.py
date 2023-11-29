@@ -50,6 +50,8 @@ class GameOfLifeGUI:
         pygame.display.set_caption("Game of Life")
 
         self.running = True
+        self.update = False
+        self.pause = False
         self.clock = pygame.time.Clock()
 
         self.button_play_image = pygame.image.load("image/bouton_play.png")
@@ -79,6 +81,33 @@ class GameOfLifeGUI:
 
             # Redessiner la planche
             self.draw_board()
+    
+    def transition_between_state(self):
+        if self.update:
+            start_time = time.time()
+            self.game.update_board()
+            end_time = time.time()
+            elapsed_time = (end_time - start_time) * 1000
+            self.elapsed_time.append(elapsed_time)
+            alive_cells_count = np.sum(self.game.board)
+            self.alive_cells.append(alive_cells_count)
+            print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
+            self.draw_board()
+            self.draw_button()
+            self.draw_curve(
+                data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)"
+            )
+            self.draw_curve(
+                self.alive_cells,
+                x_label="Etapes",
+                y_label="Nb cellules vivantes",
+                offset=(1080, 500),
+            )
+            median_time = np.median(self.elapsed_time)
+            self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
+            nb_cell = np.sum(self.game.board)
+            self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
+            self.update = False
 
     def draw_board(self):
         self.screen.fill((135, 206, 250))
@@ -161,12 +190,12 @@ class GameOfLifeGUI:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             if self.button_play_rect.collidepoint(mouse_x, mouse_y):
                 # REPRISE DE LA SIMULATION
-
+                self.pause = False
                 print("Reprise de la simulation.")
 
             elif self.button_pause_rect.collidepoint(mouse_x, mouse_y):
                 # MISE EN PAUSE DE LA SIMULATION
-
+                self.pause = True
                 print("Simulation en pause.")
 
             elif self.button_save_rect.collidepoint(mouse_x, mouse_y):
@@ -201,29 +230,9 @@ class GameOfLifeGUI:
         self.game.board = np.zeros((self.height, self.width), dtype=int)
 
     def handle_return_key(self):
-        start_time = time.time()
-        self.game.update_board()
-        end_time = time.time()
-        elapsed_time = (end_time - start_time) * 1000
-        self.elapsed_time.append(elapsed_time)
-        alive_cells_count = np.sum(self.game.board)
-        self.alive_cells.append(alive_cells_count)
-        print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
-        self.draw_board()
-        self.draw_button()
-        self.draw_curve(
-            data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)"
-        )
-        self.draw_curve(
-            self.alive_cells,
-            x_label="Etapes",
-            y_label="Nb cellules vivantes",
-            offset=(1080, 500),
-        )
-        median_time = np.median(self.elapsed_time)
-        self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
-        nb_cell = np.sum(self.game.board)
-        self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
+        self.update = True  
+        self.transition_between_state()
+
 
     def save_game_state(self):
         filename = "game_state.txt"
@@ -244,12 +253,16 @@ class GameOfLifeGUI:
                 self.handle_mouse_click()
             elif event.type == pygame.KEYDOWN:
                 self.handle_keydown_event(event)
+            elif event.type == pygame.USEREVENT + 1:
+                if self.pause == False:
+                    self.update = True
+                    self.transition_between_state()
 
     def run(self):
         self.handle_return_key()
         while self.running:
             self.handle_events()
-            self.clock.tick(10)  # Adjust the speed as needed
+            self.clock.tick(60)  # Adjust the speed as needed
             pygame.display.flip()
 
 
