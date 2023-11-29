@@ -186,8 +186,15 @@ class GameOfLifeGUI:
         print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
         self.draw_board()
         self.draw_button()
-        self.draw_curve(data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)")
-        self.draw_curve(self.alive_cells, x_label="Etapes", y_label="Nb cellules vivantes", offset=(1080, 500))
+        self.draw_curve(
+            data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)"
+        )
+        self.draw_curve(
+            self.alive_cells,
+            x_label="Etapes",
+            y_label="Nb cellules vivantes",
+            offset=(1080, 500),
+        )
         median_time = np.median(self.elapsed_time)
         self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
         nb_cell = np.sum(self.game.board)
@@ -212,7 +219,7 @@ class GameOfLifeGUI:
                 self.handle_mouse_click()
             elif event.type == pygame.KEYDOWN:
                 self.handle_keydown_event(event)
-    
+
     def run(self):
         self.handle_return_key()
         while self.running:
@@ -224,9 +231,9 @@ class GameOfLifeGUI:
 def jeu_principal(taille=50, load=False):
     game = GameOfLife(width=taille, height=taille)
     if load:
-        game.load_from_file('game_state.txt')
+        game.load_from_file("game_state.txt")
     gui = GameOfLifeGUI(game)
-    
+
     gui.run()
 
 
