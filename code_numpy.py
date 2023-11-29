@@ -130,8 +130,8 @@ class GameOfLifeGUI:
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
             ]
         )
-        self.game.board[i:i+8, j:j+22] = gun
-    
+        self.game.board[i : i + 8, j : j + 22] = gun
+
     def toggle_placement_mode(self):
         self.placement = not self.placement
         if self.placement:
@@ -143,7 +143,7 @@ class GameOfLifeGUI:
         i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
 
         if self.placement:
-            self.place_generator(i,j)
+            self.place_generator(i, j)
         # Assurez-vous que les indices sont valides
         if 0 <= i < self.game.height and 0 <= j < self.game.width:
             # Inverser l'état de la cellule
@@ -312,8 +312,7 @@ class GameOfLifeGUI:
         elif event.key == pygame.K_SPACE:
             self.pause = not self.pause
         elif event.key == pygame.K_g:
-            self.placement = not self.placement 
-
+            self.placement = not self.placement
 
     def reset_game_board(self):
         self.game.board = np.zeros((self.height, self.width), dtype=int)
