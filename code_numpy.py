@@ -84,6 +84,38 @@ class GameOfLifeGUI:
         self.deco_bonnet_rect = self.deco_bonnet_image.get_rect()
         self.deco_bonnet_rect.topleft = (1440, 876)
 
+        self.deco_cadeau_image = pygame.image.load("image/cadeau.png")
+        self.deco_cadeau_rect = self.deco_cadeau_image.get_rect()
+        self.deco_cadeau_rect.topleft = (1282, 886)
+
+        self.deco_pere_noel_image = pygame.image.load("image/pere_noel.png")
+        self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect()
+        self.deco_pere_noel_rect.topleft = (1646, 855)
+
+        self.deco_guirlande_droit1_image = pygame.image.load(
+            "image/guirlande_droit.png"
+        )
+        self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect()
+        self.deco_guirlande_droit1_rect.topleft = (1815, 0)
+
+        self.deco_guirlande_droit2_image = pygame.image.load(
+            "image/guirlande_droit.png"
+        )
+        self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect()
+        self.deco_guirlande_droit2_rect.topleft = (1815, 450)
+
+        self.deco_guirlande_gauche1_image = pygame.image.load(
+            "image/guirlande_gauche.png"
+        )
+        self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect()
+        self.deco_guirlande_gauche1_rect.topleft = (0, 0)
+
+        self.deco_guirlande_gauche2_image = pygame.image.load(
+            "image/guirlande_gauche.png"
+        )
+        self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect()
+        self.deco_guirlande_gauche2_rect.topleft = (0, 450)
+
     def place_generator(self, i, j):
         # Exemple de structure générateur (Gosper Glider Gun)
         gun = np.array(
@@ -119,7 +151,7 @@ class GameOfLifeGUI:
 
             # Redessiner la planche
             self.draw_board()
-    
+
     def transition_between_state(self):
         if self.update:
             start_time = time.time()
@@ -133,7 +165,9 @@ class GameOfLifeGUI:
             self.draw_board()
             self.draw_button()
             self.draw_curve(
-                data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)"
+                data=self.elapsed_time,
+                x_label="Etapes",
+                y_label="Temps exécutions (ms)",
             )
             self.draw_curve(
                 self.alive_cells,
@@ -142,7 +176,9 @@ class GameOfLifeGUI:
                 offset=(1080, 450),
             )
             median_time = np.median(self.elapsed_time)
-            self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
+            self.draw_text(
+                f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30)
+            )
             nb_cell = np.sum(self.game.board)
             self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 450))
             self.update = False
@@ -218,6 +254,13 @@ class GameOfLifeGUI:
         self.screen.blit(self.deco_bonnet_image, self.deco_bonnet_rect)
         self.screen.blit(self.deco_gauche_image, self.deco_gauche_rect)
         self.screen.blit(self.deco_droit_image, self.deco_droit_rect)
+        self.screen.blit(self.deco_pere_noel_image, self.deco_pere_noel_rect)
+        self.screen.blit(self.deco_cadeau_image, self.deco_cadeau_rect)
+
+        # self.screen.blit(self.deco_guirlande_droit1_image, self.deco_guirlande_droit1_rect)
+        # self.screen.blit(self.deco_guirlande_droit2_image, self.deco_guirlande_droit2_rect)
+        # self.screen.blit(self.deco_guirlande_gauche1_image, self.deco_guirlande_gauche1_rect)
+        # self.screen.blit(self.deco_guirlande_gauche2_image, self.deco_guirlande_gauche2_rect)
 
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
@@ -276,9 +319,8 @@ class GameOfLifeGUI:
         self.game.board = np.zeros((self.height, self.width), dtype=int)
 
     def handle_return_key(self):
-        self.update = True  
+        self.update = True
         self.transition_between_state()
-
 
     def save_game_state(self):
         filename = "game_state.txt"
