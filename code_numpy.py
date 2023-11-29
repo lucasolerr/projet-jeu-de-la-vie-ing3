@@ -131,69 +131,79 @@ class GameOfLifeGUI:
         text = font.render(str, True, (0, 0, 0))
         self.screen.blit(text, offset)
 
+    def handle_quit_event(self):
+        self.running = False
+
+    def handle_mouse_click(self):
+        if pygame.mouse.get_pressed()[0]:  # Clic gauche
+            self.update_cell_on_click(pygame.mouse.get_pos())
+
+    def handle_keydown_event(self, event):
+        if event.key == pygame.K_ESCAPE:
+            self.handle_quit_event()
+        elif event.key == pygame.K_r:
+            self.reset_game_board()
+        elif event.key == pygame.K_RETURN:
+            self.handle_return_key()
+        elif event.key == pygame.K_s:
+            self.save_game_state()
+        elif event.key == pygame.K_l:
+            self.load_game_state()
+
+    def reset_game_board(self):
+        self.game.board = np.zeros((self.height, self.width), dtype=int)
+
+    def handle_return_key(self):
+        start_time = time.time()
+        self.game.update_board()
+        end_time = time.time()
+        elapsed_time = (end_time - start_time) * 1000
+        self.elapsed_time.append(elapsed_time)
+        alive_cells_count = np.sum(self.game.board)
+        self.alive_cells.append(alive_cells_count)
+        print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
+        self.draw_board()
+        self.draw_curve(data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)")
+        self.draw_curve(self.alive_cells, x_label="Etapes", y_label="Nb cellules vivantes", offset=(1080, 500))
+        median_time = np.median(self.elapsed_time)
+        self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
+        nb_cell = np.sum(self.game.board)
+        self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
+
+    def save_game_state(self):
+        filename = "game_state.txt"
+        self.game.save_to_file(filename)
+        print(f"Game state saved to {filename}")
+
+    def load_game_state(self):
+        filename = "game_state.txt"
+        self.game.load_from_file(filename)
+        print(f"Game state loaded from {filename}")
+        self.draw_board()
+
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running = False
+                self.handle_quit_event()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Clic gauche
-                    self.update_cell_on_click(pygame.mouse.get_pos())
+                self.handle_mouse_click()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.running = False
-                elif event.key == pygame.K_r:
-                    self.game.board = np.zeros((self.height, self.width), dtype=int)
-                elif event.key == pygame.K_RETURN:
-                    start_time = time.time()
-                    self.game.update_board()
-                    end_time = time.time()
-                    elapsed_time = end_time - start_time
-                    elapsed_time = (end_time - start_time) * 1000
-                    self.elapsed_time.append(elapsed_time)
-                    alive_cells_count = np.sum(self.game.board)
-                    self.alive_cells.append(alive_cells_count)
-                    print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
-                    self.draw_board()
-                    self.draw_curve(
-                        data=self.elapsed_time,
-                        x_label="Etapes",
-                        y_label="Temps exécution (ms)",
-                    )
-                    self.draw_curve(
-                        data=self.alive_cells,
-                        x_label="Etapes",
-                        y_label="Nb cellules Vivantes",
-                        offset=(1080, 500),
-                    )
-                    median_time = np.median(self.elapsed_time)
-                    self.draw_text(
-                        f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30)
-                    )
-                    nb_cell = np.sum(self.game.board)
-                    self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 500))
-                    pygame.display.flip()
-                elif event.key == pygame.K_s:
-                    filename = "game_state.txt"
-                    self.game.save_to_file(filename)
-                    print(f"Game state saved to {filename}")
-                elif event.key == pygame.K_l:
-                    # Press 'l' to load the state from a file
-                    filename = "game_state.txt"
-                    self.game.load_from_file(filename)
-                    print(f"Game state loaded from {filename}")
-                    self.draw_board()
-
+                self.handle_keydown_event(event)
+    
     def run(self):
+        self.handle_return_key()
         while self.running:
             self.handle_events()
             self.clock.tick(10)  # Adjust the speed as needed
             pygame.display.flip()
 
 
-def jeu_principal(taille):
+def jeu_principal(taille=50, load=False):
     game = GameOfLife(width=taille, height=taille)
+    if load:
+        game.load_from_file('game_state.txt')
     gui = GameOfLifeGUI(game)
-
+    
     gui.run()
 
 
