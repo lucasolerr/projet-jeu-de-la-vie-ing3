@@ -39,9 +39,7 @@ class GameOfLife:
 class GameOfLifeGUI:
     def __init__(self, game):
         self.game = game
-        self.cell_size = min(
-            1000 // game.width, 1000 // game.height
-        ) 
+        self.cell_size = min(1000 // game.width, 1000 // game.height)
         self.curve_color = (0, 0, 255)
         self.curve_width = 2
         self.width = self.game.width * self.cell_size
@@ -53,6 +51,22 @@ class GameOfLifeGUI:
 
         self.running = True
         self.clock = pygame.time.Clock()
+
+        self.button_play_image = pygame.image.load("image/bouton_play.png")
+        self.button_play_rect = self.button_play_image.get_rect()
+        self.button_play_rect.topleft = (1292, 964)
+
+        self.button_pause_image = pygame.image.load("image/bouton_pause.png")
+        self.button_pause_rect = self.button_pause_image.get_rect()
+        self.button_pause_rect.topleft = (1107, 964)
+
+        self.button_save_image = pygame.image.load("image/bouton_save.png")
+        self.button_save_rect = self.button_save_image.get_rect()
+        self.button_save_rect.topleft = (1472, 964)
+
+        self.button_load_image = pygame.image.load("image/bouton_load.png")
+        self.button_load_rect = self.button_save_image.get_rect()
+        self.button_load_rect.topleft = (1652, 964)
 
     def update_cell_on_click(self, pos):
         # Convertir la position du clic en indices de tableau
@@ -111,7 +125,9 @@ class GameOfLifeGUI:
         y_label=None,
         offset=(1080, 10),
     ):
-        fig, ax = plt.subplots(figsize=(8, 4), facecolor=(135 / 255, 206 / 255, 250 / 255))
+        fig, ax = plt.subplots(
+            figsize=(8, 4), facecolor=(135 / 255, 206 / 255, 250 / 255)
+        )
         ax.plot(data, linewidth=width)
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
@@ -125,6 +141,12 @@ class GameOfLifeGUI:
 
         # Afficher l'image à la position spécifiée
         self.screen.blit(image, offset)
+
+    def draw_button(self):
+        self.screen.blit(self.button_play_image, self.button_play_rect)
+        self.screen.blit(self.button_pause_image, self.button_pause_rect)
+        self.screen.blit(self.button_save_image, self.button_save_rect)
+        self.screen.blit(self.button_load_image, self.button_load_rect)
 
     def draw_text(self, str, offset):
         font = pygame.font.Font(None, 36)
@@ -163,6 +185,7 @@ class GameOfLifeGUI:
         self.alive_cells.append(alive_cells_count)
         print(f"Time taken for update: {elapsed_time:.4f} millis seconds")
         self.draw_board()
+        self.draw_button()
         self.draw_curve(data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)")
         self.draw_curve(self.alive_cells, x_label="Etapes", y_label="Nb cellules vivantes", offset=(1080, 500))
         median_time = np.median(self.elapsed_time)
