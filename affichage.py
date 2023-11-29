@@ -130,7 +130,7 @@ class GameMenu:
                 elif self.selected_action == "Charger":
                     jeu_principal(load=True)
                     self.settings_selected = True
-
+                    mainloop = False
                 elif self.selected_action == "Quitter":
                     self.quit_select = True
                     mainloop = False
