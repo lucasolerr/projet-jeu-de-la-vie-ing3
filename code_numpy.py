@@ -93,7 +93,7 @@ class GameOfLifeGUI:
 
             # Redessiner la planche
             self.draw_board()
-    
+
     def transition_between_state(self):
         if self.update:
             start_time = time.time()
@@ -107,7 +107,9 @@ class GameOfLifeGUI:
             self.draw_board()
             self.draw_button()
             self.draw_curve(
-                data=self.elapsed_time, x_label="Etapes", y_label="Temps exécutions (ms)"
+                data=self.elapsed_time,
+                x_label="Etapes",
+                y_label="Temps exécutions (ms)",
             )
             self.draw_curve(
                 self.alive_cells,
@@ -116,7 +118,9 @@ class GameOfLifeGUI:
                 offset=(1080, 450),
             )
             median_time = np.median(self.elapsed_time)
-            self.draw_text(f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30))
+            self.draw_text(
+                f"Temps médian d'exécution : {median_time:.2f} ms", (1080, 30)
+            )
             nb_cell = np.sum(self.game.board)
             self.draw_text(f"Nb total de celulles : {nb_cell:.2f}", (1080, 450))
             self.update = False
@@ -245,9 +249,8 @@ class GameOfLifeGUI:
         self.game.board = np.zeros((self.height, self.width), dtype=int)
 
     def handle_return_key(self):
-        self.update = True  
+        self.update = True
         self.transition_between_state()
-
 
     def save_game_state(self):
         filename = "game_state.txt"
