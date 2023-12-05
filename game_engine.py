@@ -28,7 +28,7 @@ class GameOfLife:
                 np.where((self.board == 0) & (neighbors_count == 3), 1, self.board),
             ),
         )
-    
+
     def place_gun(self, i, j):
         gun = np.array(
             [
@@ -379,14 +379,14 @@ class GameOfLife:
         self.board[i : i + 9, j : j + 36] = gun
 
     def place_spaceship(self, i, j):
-            spaceship = np.array(
-                    [
-                            [0,0,1,1,0,0,0],
-                            [1,0,0,0,0,1,0],
-                            [0,0,0,0,0,0,1],
-                            [1,0,0,0,0,0,1],
-                            [0,1,1,1,1,1,1]
-                    ]
-            )
+        spaceship = np.array(
+            [
+                [0, 0, 1, 1, 0, 0, 0],
+                [1, 0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 1],
+                [0, 1, 1, 1, 1, 1, 1],
+            ]
+        )
 
-            self.board[i : i + 5, j : j + 7] = spaceship
+        self.board[i : i + 5, j : j + 7] = spaceship

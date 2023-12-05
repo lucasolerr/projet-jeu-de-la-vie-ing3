@@ -3,6 +3,7 @@ from game_engine import GameOfLife
 from game_renderer import GameOfLifeGUI
 from game_grid_size import GridSizeMenu
 
+
 class GameMenu:
     def __init__(
         self,

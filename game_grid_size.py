@@ -1,5 +1,6 @@
 import pygame
 
+
 class GridSizeMenu:
     def __init__(
         self,
