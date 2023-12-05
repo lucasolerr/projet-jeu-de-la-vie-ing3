@@ -27,7 +27,7 @@ if __name__ == "__main__":
     #
     # ##
 
-    #matplotlib.use("TkAgg")
+    # matplotlib.use("TkAgg")
     # Initialisation de Pygame
     pygame.init()
     # Taille de la fenêtre

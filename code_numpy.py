@@ -33,6 +33,7 @@ class GameOfLife:
             ),
         )
 
+
 class GameOfLifeGUI:
     def __init__(self, game):
         self.game = game
@@ -65,10 +66,18 @@ class GameOfLifeGUI:
         self.deco_bonnet_image = pygame.image.load("image/bonnet.png")
         self.deco_cadeau_image = pygame.image.load("image/cadeau.png")
         self.deco_pere_noel_image = pygame.image.load("image/pere_noel.png")
-        self.deco_guirlande_droit1_image = pygame.image.load("image/guirlande_droit.png")
-        self.deco_guirlande_droit2_image = pygame.image.load("image/guirlande_droit.png")
-        self.deco_guirlande_gauche1_image = pygame.image.load("image/guirlande_gauche.png")
-        self.deco_guirlande_gauche2_image = pygame.image.load("image/guirlande_gauche.png")
+        self.deco_guirlande_droit1_image = pygame.image.load(
+            "image/guirlande_droit.png"
+        )
+        self.deco_guirlande_droit2_image = pygame.image.load(
+            "image/guirlande_droit.png"
+        )
+        self.deco_guirlande_gauche1_image = pygame.image.load(
+            "image/guirlande_gauche.png"
+        )
+        self.deco_guirlande_gauche2_image = pygame.image.load(
+            "image/guirlande_gauche.png"
+        )
 
     def set_button_positions(self):
         self.button_play_rect = self.button_play_image.get_rect(topleft=(1292, 964))
@@ -79,24 +88,367 @@ class GameOfLifeGUI:
         self.deco_droit_rect = self.deco_droit_image.get_rect(topleft=(1199, 838))
         self.deco_bonnet_rect = self.deco_bonnet_image.get_rect(topleft=(1440, 876))
         self.deco_cadeau_rect = self.deco_cadeau_image.get_rect(topleft=(1282, 886))
-        self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect(topleft=(1646, 855))
-        self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect(topleft=(1815, 0))
-        self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect(topleft=(1815, 450))
-        self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect(topleft=(0, 0))
-        self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect(topleft=(0, 450))
+        self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect(
+            topleft=(1646, 855)
+        )
+        self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect(
+            topleft=(1815, 0)
+        )
+        self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect(
+            topleft=(1815, 450)
+        )
+        self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect(
+            topleft=(0, 0)
+        )
+        self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect(
+            topleft=(0, 450)
+        )
 
     def place_generator(self, i, j):
         gun = np.array(
             [
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-                [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                ],
+                [
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
+                [
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
             ]
         )
         self.game.board[i : i + 9, j : j + 36] = gun
@@ -140,9 +492,7 @@ class GameOfLifeGUI:
                 offset=(1080, 450),
             )
             median_time = np.median(self.elapsed_time)
-            self.draw_text(
-                f"Median Execution Time: {median_time:.2f} ms", (1080, 30)
-            )
+            self.draw_text(f"Median Execution Time: {median_time:.2f} ms", (1080, 30))
             nb_cell = np.sum(self.game.board)
             self.draw_text(f"Total Number of Cells: {nb_cell:.2f}", (1080, 450))
             self.update = False
@@ -258,7 +608,9 @@ class GameOfLifeGUI:
             self.placement = not self.placement
 
     def reset_game_board(self):
-        self.game.board = np.random.choice([0, 1], size=(self.game.height, self.game.height), p=[1, 0])
+        self.game.board = np.random.choice(
+            [0, 1], size=(self.game.height, self.game.height), p=[1, 0]
+        )
 
     def handle_return_key(self):
         self.update = True
