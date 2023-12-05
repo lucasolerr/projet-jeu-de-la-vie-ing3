@@ -27,7 +27,7 @@ if __name__ == "__main__":
     #
     # ##
 
-    matplotlib.use("TkAgg")
+    #matplotlib.use("TkAgg")
     # Initialisation de Pygame
     pygame.init()
     # Taille de la fenêtre
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((info.current_w, info.current_h))
     CLOCK_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(
-        CLOCK_EVENT, 1000
+        CLOCK_EVENT, 300
     )  # Générer l'événement toutes les 1000 millisecondes (1 seconde)
 
     # Éléments du menu
