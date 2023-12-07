@@ -390,3 +390,44 @@ class GameOfLife:
             )
 
             self.board[i : i + 5, j : j + 7] = spaceship
+
+    def place_beacon(self, i, j):
+            beacon = np.array(
+                    [
+                            [1,1,0,0],
+                            [1,1,0,0],
+                            [0,0,1,1],
+                            [0,0,1,1]
+                    ]
+            )
+
+            self.board[i : i + 4, j : j + 4] = beacon
+
+    def place_pentadecatlon(self, i, j):
+            pentadecatlon = np.array(
+                    [
+                            [0,0,0,1,1,1,0,0,0],
+                            [0,0,1,0,0,0,1,0,0],
+                            [0,1,0,0,0,0,0,1,0],
+                            [0,0,0,0,0,0,0,0,0],
+                            [1,0,0,0,0,0,0,0,1],
+                            [1,0,0,0,0,0,0,0,1],
+                            [0,0,0,0,0,0,0,0,0],
+                            [0,1,0,0,0,0,0,1,0],
+                            [0,0,1,0,0,0,1,0,0],
+                            [0,0,0,1,1,1,0,0,0]
+                    ]
+            )
+
+            self.board[i : i + 10, j : j + 9] = pentadecatlon
+
+    def place_tub(self, i, j):
+        tub = np.array(
+             [
+                  [0,1,0],
+                  [1,0,1],
+                  [0,1,0]
+             ]
+        )
+
+        self.board[i : i + 3, j : j + 3] = tub
