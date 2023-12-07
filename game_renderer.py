@@ -93,8 +93,6 @@ class GameOfLifeGUI:
 
         if self.placement:
             self.game.place_tub(i, j)
-        
-        
 
     def transition_between_state(self):
         if self.update:
