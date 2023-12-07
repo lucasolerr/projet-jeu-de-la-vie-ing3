@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import time
 
+
 class GameOfLifeGUI:
     def __init__(self, game):
         self.game = game
@@ -82,7 +83,11 @@ class GameOfLifeGUI:
     def update_cell_on_click(self, pos):
         i, j = (pos[1] - 40) // self.cell_size, (pos[0] - 40) // self.cell_size
 
-        if 0 <= i < self.game.height and 0 <= j < self.game.width and not self.placement:
+        if (
+            0 <= i < self.game.height
+            and 0 <= j < self.game.width
+            and not self.placement
+        ):
             self.game.board[i, j] = 1 - self.game.board[i, j]
             self.draw_board()
 
@@ -168,7 +173,6 @@ class GameOfLifeGUI:
         image = pygame.image.fromstring(canvas.tostring_rgb(), size, "RGB")
         self.screen.blit(image, offset)
         plt.close(fig)
-
 
     def draw_button(self):
         self.screen.blit(self.button_play_image, self.button_play_rect)
