@@ -90,7 +90,7 @@ class GameOfLifeGUI:
         ):
             self.game.board[i, j] = 1 - self.game.board[i, j]
             self.draw_board()
-        
+
         if self.placement:
             self.game.place_tub(i, j)
 
