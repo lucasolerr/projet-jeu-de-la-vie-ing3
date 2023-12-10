@@ -1,8 +1,9 @@
+import matplotlib
 import pygame
 from game_menu import GameMenu
 
 if __name__ == "__main__":
-    # matplotlib.use("TkAgg")
+    matplotlib.use("TkAgg")
 
     pygame.init()
     info = pygame.display.Info()
