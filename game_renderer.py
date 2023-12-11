@@ -92,7 +92,9 @@ class GameOfLifeGUI:
             self.draw_board()
 
         if self.placement:
-            self.game.place_tub(i, j)
+            self.game.place_spaceship(i, j)
+            self.draw_board()
+
 
     def transition_between_state(self):
         if self.update:
