@@ -127,7 +127,6 @@ class GameOfLifeGUI:
             self.draw_text(f"Number of steps: {len(self.elapsed_time):} ", (10, 10))
             self.update = False
 
-
     def draw_board(self):
         self.screen.fill((135, 206, 250))
 
