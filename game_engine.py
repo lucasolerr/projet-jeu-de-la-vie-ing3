@@ -376,7 +376,8 @@ class GameOfLife:
                 ],
             ]
         )
-        self.board[i : i + 9, j : j + 36] = gun
+        if i + 9 < self.width and j + 36 < self.width:
+            self.board[i : i + 9, j : j + 36] = gun
 
     def place_spaceship(self, i, j):
         spaceship = np.array(
@@ -388,13 +389,14 @@ class GameOfLife:
                 [0, 1, 1, 1, 1, 1, 1],
             ]
         )
-
-        self.board[i : i + 5, j : j + 7] = spaceship
+        if i + 5 < self.width and j + 7 < self.width:
+            self.board[i : i + 5, j : j + 7] = spaceship
 
     def place_beacon(self, i, j):
         beacon = np.array([[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]])
 
-        self.board[i : i + 4, j : j + 4] = beacon
+        if i + 4 < self.width and j + 4 < self.width:
+            self.board[i : i + 4, j : j + 4] = beacon
 
     def place_pentadecatlon(self, i, j):
         pentadecatlon = np.array(
@@ -412,9 +414,11 @@ class GameOfLife:
             ]
         )
 
-        self.board[i : i + 10, j : j + 9] = pentadecatlon
+        if i + 10 < self.width and j + 9 < self.width:
+            self.board[i : i + 10, j : j + 9] = pentadecatlon
 
     def place_tub(self, i, j):
         tub = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])
 
-        self.board[i : i + 3, j : j + 3] = tub
+        if i + 3 < self.width and j + 3 < self.width:
+            self.board[i : i + 3, j : j + 3] = tub
