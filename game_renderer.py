@@ -124,7 +124,9 @@ class GameOfLifeGUI:
             self.draw_text(f"Median Execution Time: {median_time:.2f} ms", (1080, 30))
             nb_cell = np.sum(self.game.board)
             self.draw_text(f"Total Number of Cells: {nb_cell:.2f}", (1080, 450))
+            self.draw_text(f"Number of steps: {len(self.elapsed_time):} ", (10, 10))
             self.update = False
+
 
     def draw_board(self):
         self.screen.fill((135, 206, 250))
