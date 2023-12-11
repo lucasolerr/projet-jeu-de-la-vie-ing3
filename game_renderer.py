@@ -43,7 +43,6 @@ class GameOfLifeGUI:
         self.deco_cadeau_image = pygame.image.load("image/cadeau.png")
         self.deco_pere_noel_image = pygame.image.load("image/pere_noel.png")
 
-
     def set_button_positions(self):
         self.button_play_rect = self.button_play_image.get_rect(topleft=(1292, 964))
         self.button_pause_rect = self.button_pause_image.get_rect(topleft=(1107, 964))
@@ -56,7 +55,6 @@ class GameOfLifeGUI:
         self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect(
             topleft=(1646, 855)
         )
-
 
     def toggle_placement_mode(self):
         self.placement = not self.placement
