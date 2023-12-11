@@ -37,18 +37,7 @@ class GameOfLifeGUI:
         self.deco_bonnet_image = pygame.image.load("image/bonnet.png")
         self.deco_cadeau_image = pygame.image.load("image/cadeau.png")
         self.deco_pere_noel_image = pygame.image.load("image/pere_noel.png")
-        self.deco_guirlande_droit1_image = pygame.image.load(
-            "image/guirlande_droit.png"
-        )
-        self.deco_guirlande_droit2_image = pygame.image.load(
-            "image/guirlande_droit.png"
-        )
-        self.deco_guirlande_gauche1_image = pygame.image.load(
-            "image/guirlande_gauche.png"
-        )
-        self.deco_guirlande_gauche2_image = pygame.image.load(
-            "image/guirlande_gauche.png"
-        )
+
 
     def set_button_positions(self):
         self.button_play_rect = self.button_play_image.get_rect(topleft=(1292, 964))
@@ -62,18 +51,7 @@ class GameOfLifeGUI:
         self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect(
             topleft=(1646, 855)
         )
-        self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect(
-            topleft=(1815, 0)
-        )
-        self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect(
-            topleft=(1815, 450)
-        )
-        self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect(
-            topleft=(0, 0)
-        )
-        self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect(
-            topleft=(0, 450)
-        )
+
 
     def toggle_placement_mode(self):
         self.placement = not self.placement
