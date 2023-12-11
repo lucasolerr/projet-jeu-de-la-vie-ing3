@@ -37,18 +37,6 @@ class GameOfLifeGUI:
         self.deco_bonnet_image = pygame.image.load("image/bonnet.png")
         self.deco_cadeau_image = pygame.image.load("image/cadeau.png")
         self.deco_pere_noel_image = pygame.image.load("image/pere_noel.png")
-        self.deco_guirlande_droit1_image = pygame.image.load(
-            "image/guirlande_droit.png"
-        )
-        self.deco_guirlande_droit2_image = pygame.image.load(
-            "image/guirlande_droit.png"
-        )
-        self.deco_guirlande_gauche1_image = pygame.image.load(
-            "image/guirlande_gauche.png"
-        )
-        self.deco_guirlande_gauche2_image = pygame.image.load(
-            "image/guirlande_gauche.png"
-        )
 
     def set_button_positions(self):
         self.button_play_rect = self.button_play_image.get_rect(topleft=(1292, 964))
@@ -61,18 +49,6 @@ class GameOfLifeGUI:
         self.deco_cadeau_rect = self.deco_cadeau_image.get_rect(topleft=(1282, 886))
         self.deco_pere_noel_rect = self.deco_pere_noel_image.get_rect(
             topleft=(1646, 855)
-        )
-        self.deco_guirlande_droit1_rect = self.deco_guirlande_droit1_image.get_rect(
-            topleft=(1815, 0)
-        )
-        self.deco_guirlande_droit2_rect = self.deco_guirlande_droit2_image.get_rect(
-            topleft=(1815, 450)
-        )
-        self.deco_guirlande_gauche1_rect = self.deco_guirlande_gauche1_image.get_rect(
-            topleft=(0, 0)
-        )
-        self.deco_guirlande_gauche2_rect = self.deco_guirlande_gauche2_image.get_rect(
-            topleft=(0, 450)
         )
 
     def toggle_placement_mode(self):
@@ -92,7 +68,8 @@ class GameOfLifeGUI:
             self.draw_board()
 
         if self.placement:
-            self.game.place_tub(i, j)
+            self.game.place_spaceship(i, j)
+            self.draw_board()
 
     def transition_between_state(self):
         if self.update:
@@ -183,12 +160,6 @@ class GameOfLifeGUI:
         self.screen.blit(self.deco_pere_noel_image, self.deco_pere_noel_rect)
         self.screen.blit(self.deco_cadeau_image, self.deco_cadeau_rect)
 
-        # Uncomment the following lines if needed
-        # self.screen.blit(self.deco_guirlande_droit1_image, self.deco_guirlande_droit1_rect)
-        # self.screen.blit(self.deco_guirlande_droit2_image, self.deco_guirlande_droit2_rect)
-        # self.screen.blit(self.deco_guirlande_gauche1_image, self.deco_guirlande_gauche1_rect)
-        # self.screen.blit(self.deco_guirlande_gauche2_image, self.deco_guirlande_gauche2_rect)
-
     def draw_text(self, text, offset):
         font = pygame.font.Font(None, 36)
         rendered_text = font.render(text, True, (0, 0, 0))
@@ -231,6 +202,14 @@ class GameOfLifeGUI:
             self.load_game_state()
         elif event.key == pygame.K_SPACE:
             self.pause = not self.pause
+        elif event.key == pygame.K_g:
+            self.placement = not self.placement
+        elif event.key == pygame.K_g:
+            self.placement = not self.placement
+        elif event.key == pygame.K_g:
+            self.placement = not self.placement
+        elif event.key == pygame.K_g:
+            self.placement = not self.placement
         elif event.key == pygame.K_g:
             self.placement = not self.placement
 
