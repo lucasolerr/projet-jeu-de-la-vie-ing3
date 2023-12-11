@@ -82,24 +82,20 @@ class GameOfLifeGUI:
             self.draw_board()
             self.placement_tub = False
 
-
         elif self.placement_pentadecatlon:
             self.game.place_pentadecatlon(i, j)
             self.draw_board()
             self.placement_pentadecatlon = False
-
 
         elif self.placement_gun:
             self.game.place_gun(i, j)
             self.draw_board()
             self.placement_gun = False
 
-
         elif self.placement_beacon:
             self.game.place_beacon(i, j)
             self.draw_board()
             self.placement_beacon = False
-
 
     def transition_between_state(self):
         if self.update:
@@ -246,7 +242,6 @@ class GameOfLifeGUI:
 
         elif event.key == pygame.K_5:
             self.placement_tub = not self.placement_tub
-
 
     def reset_game_board(self):
         self.game.board = np.random.choice(
