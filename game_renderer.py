@@ -237,7 +237,6 @@ class GameOfLifeGUI:
         elif event.key == pygame.K_g:
             self.placement = not self.placement
 
-
     def reset_game_board(self):
         self.game.board = np.random.choice(
             [0, 1], size=(self.game.height, self.game.height), p=[1, 0]
