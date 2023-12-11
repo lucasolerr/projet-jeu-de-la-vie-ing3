@@ -95,7 +95,6 @@ class GameOfLifeGUI:
             self.game.place_spaceship(i, j)
             self.draw_board()
 
-
     def transition_between_state(self):
         if self.update:
             start_time = time.time()
