@@ -21,6 +21,11 @@ class GameOfLifeGUI:
         self.update = False
         self.pause = False
         self.placement = False
+        self.placement_gun = False
+        self.placement_pentadecatlon = False
+        self.placement_spaceship = False
+        self.placement_tub = False
+        self.placement_beacon = False
         self.selected_structure = None
         self.clock = pygame.time.Clock()
 
@@ -69,9 +74,34 @@ class GameOfLifeGUI:
             self.game.board[i, j] = 1 - self.game.board[i, j]
             self.draw_board()
 
-        if self.placement:
+        if self.placement_spaceship:
             self.game.place_spaceship(i, j)
             self.draw_board()
+            self.placement_spaceship = False
+
+        elif self.placement_tub:
+            self.game.place_tub(i, j)
+            self.draw_board()
+            self.placement_tub = False
+
+
+        elif self.placement_pentadecatlon:
+            self.game.place_pentadecatlon(i, j)
+            self.draw_board()
+            self.placement_pentadecatlon = False
+
+
+        elif self.placement_gun:
+            self.game.place_gun(i, j)
+            self.draw_board()
+            self.placement_gun = False
+
+
+        elif self.placement_beacon:
+            self.game.place_beacon(i, j)
+            self.draw_board()
+            self.placement_beacon = False
+
 
     def transition_between_state(self):
         if self.update:
@@ -204,16 +234,21 @@ class GameOfLifeGUI:
             self.load_game_state()
         elif event.key == pygame.K_SPACE:
             self.pause = not self.pause
-        elif event.key == pygame.K_g:
-            self.placement = not self.placement
-        elif event.key == pygame.K_g:
-            self.placement = not self.placement
-        elif event.key == pygame.K_g:
-            self.placement = not self.placement
-        elif event.key == pygame.K_g:
-            self.placement = not self.placement
-        elif event.key == pygame.K_g:
-            self.placement = not self.placement
+        elif event.key == pygame.K_1:
+            self.placement_gun = not self.placement_gun
+
+        elif event.key == pygame.K_2:
+            self.placement_spaceship = not self.placement_spaceship
+
+        elif event.key == pygame.K_3:
+            self.placement_beacon = not self.placement_beacon
+
+        elif event.key == pygame.K_4:
+            self.placement_pentadecatlon = not self.placement_pentadecatlon
+
+        elif event.key == pygame.K_5:
+            self.placement_tub = not self.placement_tub
+
 
     def reset_game_board(self):
         self.game.board = np.random.choice(
